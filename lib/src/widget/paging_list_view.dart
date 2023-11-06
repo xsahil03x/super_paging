@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:super_pager/src/paging_state.dart';
 import 'package:super_pager/src/super_pager.dart';
 import 'package:super_pager/src/widget/paging_sliver_list.dart';
 
