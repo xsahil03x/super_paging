@@ -1,4 +1,4 @@
-name: multi_trigger_autocomplete
+name: super_pager
 
 on:
   push:
