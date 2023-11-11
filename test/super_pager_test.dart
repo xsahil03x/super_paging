@@ -1,153 +1,180 @@
-import 'package:cancellation_token/cancellation_token.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:super_pager/super_pager.dart';
+
+import 'mock_paging_source.dart';
+
+const initialState = PagingState<int, String>(
+  pages: PagingList(bottom: [
+    Page(items: ['Item 1', 'Item 2'], prevKey: null, nextKey: 2),
+  ]),
+  refreshLoadState: LoadState.notLoadingComplete,
+  prependLoadState: LoadState.notLoadingComplete,
+  appendLoadState: LoadState.notLoading(endOfPaginationReached: false),
+);
+
 void main() {
-  final token = CancellationToken();
+  test('SuperPager should be initialized with the provided initialState', () {
+    // Test initialization with a custom initial state.
+    final superPager = SuperPager<int, String>(
+      config: const PagingConfig(pageSize: 20),
+      pagingSource: const MockPagingSource(),
+      initialState: initialState,
+    );
 
-  Future<T> withCancellationScope<T>(
-    Future<T> Function() callback, {
-    required CancellationToken token,
-    void Function(Object, StackTrace)? onError,
-  }) async {
-    // Store the current state to revert to if the callback throws an exception.
-    // final currentState = value;
+    expect(superPager.value, equals(initialState));
+  });
 
-    try {
-      return await CancellableFuture.from(callback, token);
-    } on CancelledException catch (_) {
-      // If the callback threw an exception, revert to the previous state.
-      // value = currentState;
+  test('SuperPager should load data with load method', () async {
+    final superPager = SuperPager<int, String>(
+      config: const PagingConfig(pageSize: 20),
+      pagingSource: const MockPagingSource(),
+    );
 
-      print('Cancelled Clause');
+    await superPager.load(LoadType.refresh);
 
-      // Don't rethrow the exception, since we've already reverted to the
-      // previous state.
+    // Assert that the value is not empty, indicating that data is loaded.
+    expect(superPager.value.pages, isNotEmpty);
+  });
 
-      return Future.value();
-    } catch (e, stk) {
-      // If the callback threw an exception, revert to the previous state.
-      // value = currentState;
+  test('SuperPager should refresh data with refresh method', () async {
+    final superPager = SuperPager<int, String>(
+      config: const PagingConfig(pageSize: 20),
+      pagingSource: const MockPagingSource(),
+    );
 
-      print('Catch Clause');
+    await superPager.load(LoadType.refresh);
+    await superPager.load(LoadType.append);
+    final previousValue = superPager.value;
 
-      // Don't rethrow the exception, since we've already reverted to the
-      // previous state.
-      return Future.value();
+    await superPager.refresh();
+
+    // Assert that the value has changed after refresh.
+    expect(superPager.value, isNot(equals(previousValue)));
+  });
+
+  test('SuperPager should correctly handle error states', () async {
+    final errorPagingSource = ErrorPagingSource(); // Simulated error source
+    final superPager = SuperPager<int, String>(
+      config: const PagingConfig(pageSize: 20),
+      pagingSource: errorPagingSource,
+    );
+
+    await superPager.load(LoadType.refresh);
+
+    // Assert that the value contains an error state.
+    expect(superPager.value.refreshLoadState is Error, isTrue);
+  });
+
+  test('SuperPager should retry failed load requests', () async {
+    final errorPagingSource = ErrorPagingSource(); // Simulated error source
+    final superPager = SuperPager<int, String>(
+      config: const PagingConfig(pageSize: 20),
+      pagingSource: errorPagingSource,
+    );
+
+    await superPager.load(LoadType.refresh);
+    final previousValue = superPager.value;
+
+    await superPager.retry();
+
+    // Assert that the value has changed after the retry.
+    expect(superPager.value, isNot(equals(previousValue)));
+  });
+
+  test('SuperPager should add and remove listeners correctly', () async {
+    final superPager = SuperPager<int, String>(
+      config: const PagingConfig(pageSize: 20),
+      pagingSource: const MockPagingSource(),
+    );
+
+    int listenerCount = 0;
+
+    void listener() {
+      listenerCount++;
     }
-  }
 
-  Future<String> testString() {
-    return Future.delayed(const Duration(seconds: 1), () {
-      token.cancelWithReason('cancellationReason');
-      return 'test';
-    });
-  }
+    // Add listener and ensure it's triggered.
+    superPager.addListener(listener);
+    await superPager.load(LoadType.refresh);
 
-  test('description', () async {
+    expect(listenerCount, greaterThan(0));
 
-    const int maxValue = (1 << 63) - 1;
+    // Remove listener and ensure it's not triggered.
+    final previousListenerCount = listenerCount;
+    superPager.removeListener(listener);
+    await superPager.load(LoadType.append);
 
-    print(maxValue);
-
-    // Future<String> getData() async {
-    //   await Future.delayed(const Duration(seconds: 3));
-    //   return 'Data';
-    // }
-    //
-    // Future.delayed(const Duration(seconds: 1), () {
-    //   token.cancel();
-    // });
-    //
-    // final data = await withCancellationScope(
-    //   getData,
-    //   token: token,
-    // );
-    //
-    // print(data);
+    expect(listenerCount, equals(previousListenerCount));
   });
 
-  test('adds one to input values', () async {
-    final a = A();
+  test('SuperPager should dispose correctly', () {
+    final superPager = SuperPager<int, String>(
+      config: const PagingConfig(pageSize: 20),
+      pagingSource: const MockPagingSource(),
+    );
 
-    a.addListener(() {
-      print('a changed: ${a.value}');
-    });
+    superPager.dispose();
 
-    a.updateValue(12);
-    a.updateValue(13);
-    a.updateValue(14);
-
-    a.reset();
-
-    a.updateValue(15);
-    a.updateValue(16);
-    a.updateValue(17);
-
-    a.reset();
-
-    a.updateValue(18);
-    a.updateValue(19);
-    a.updateValue(20);
+    // Adding a listener after disposal should throw an error.
+    expect(() => superPager.addListener(() {}), throwsA(isA<FlutterError>()));
   });
-}
 
-typedef BFactory = B Function();
+  test('SuperPager should handle multiple pages correctly', () async {
+    final superPager = SuperPager<int, String>(
+      config: const PagingConfig(pageSize: 20),
+      // Ensure multiple pages
+      pagingSource: const MockPagingSource(),
+    );
 
-class A implements ValueListenable<int> {
-  A([int initialValue = 1])
-      : _notifier = ValueNotifier(initialValue),
-        _bFactory = (() => B(initialValue++)) {
-    _b.addListener(onValueChanged);
-  }
+    await superPager.load(LoadType.refresh);
 
-  final ValueNotifier<int> _notifier;
+    // Verify that the first page is loaded.
+    expect(superPager.value.pages.items, hasLength(60));
 
-  final BFactory _bFactory;
+    // Load more data (next page).
+    await superPager.load(LoadType.append);
 
-  late B _b = _bFactory();
+    // Verify that the second page is loaded.
+    expect(superPager.value.pages.items, hasLength(80));
+  });
 
-  void updateValue(int value) {
-    _b.updateValue(value);
-  }
+  test('SuperPager should correctly handle resetting pages during refresh',
+      () async {
+    final superPager = SuperPager<int, String>(
+      config: const PagingConfig(pageSize: 20),
+      // Ensure multiple pages
+      pagingSource: const MockPagingSource(),
+    );
 
-  void onValueChanged() {
-    _notifier.value = _b.value;
-  }
+    await superPager.load(LoadType.refresh);
+    await superPager.load(LoadType.append);
 
-  @override
-  int get value => _notifier.value;
+    // Verify that the items is loaded.
+    expect(superPager.value.pages.items, hasLength(80));
 
-  @override
-  void addListener(VoidCallback listener) => _notifier.addListener(listener);
+    // Refresh data with resetting pages.
+    await superPager.refresh(resetPages: true);
 
-  @override
-  void removeListener(VoidCallback listener) {
-    _notifier.removeListener(listener);
-  }
+    // Verify that the data is refreshed and pages are reset.
+    expect(superPager.value.pages.items, hasLength(60));
+  });
 
-  void reset() {
-    final current = _b;
-    current.removeListener(onValueChanged);
-    current.dispose();
+  test('SuperPager should correctly handle concurrency', () async {
+    final superPager = SuperPager<int, String>(
+      config: const PagingConfig(pageSize: 20),
+      pagingSource: const MockPagingSource(),
+    );
 
-    _b = _bFactory();
-    _b.addListener(onValueChanged);
-  }
-}
+    // Initial load.
+    await superPager.load(LoadType.refresh);
 
-class B extends ValueNotifier<int> {
-  B(this._initialValue) : super(_initialValue);
+    // Concurrent load requests.
+    final loadFuture1 = superPager.load(LoadType.prepend);
+    final loadFuture2 = superPager.load(LoadType.append);
 
-  final int _initialValue;
-
-  void updateValue(int value) {
-    super.value = value;
-  }
-
-  @override
-  void dispose() {
-    print('$this : Initial: $_initialValue disposed');
-    super.dispose();
-  }
+    // Ensure concurrent load requests do not interfere with each other.
+    await Future.wait([loadFuture1, loadFuture2]);
+  });
 }
