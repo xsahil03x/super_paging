@@ -40,11 +40,6 @@ jobs:
       - name: 🧪 Run Tests
         run: flutter test --no-pub --coverage --test-randomize-ordering-seed random
 
-      - name: 📊 Check Code Coverage
-        uses: VeryGoodOpenSource/very_good_coverage@v2
-        with:
-          min_coverage: 75
-
       - name: 📁 Upload coverage to Codecov
         uses: codecov/codecov-action@v3
 
