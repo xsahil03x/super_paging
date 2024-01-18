@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:super_pager/src/page_fetcher.dart';
 import 'package:super_pager/super_pager.dart';
 
-import 'mock_paging_source.dart';
+import 'fake_paging_source.dart';
 
 const initialState = PagingState<int, String>(
   pages: PagingList(bottom: [
@@ -18,7 +18,7 @@ void main() {
   test('PageFetcher should be initialized with the provided initialState', () {
     final pageFetcher = PageFetcher<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
       initialState: initialState,
     );
 
@@ -28,7 +28,7 @@ void main() {
   test('PageFetcher should load data with load method', () async {
     final pageFetcher = PageFetcher<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
       initialState: const PagingState(),
     );
 
@@ -72,7 +72,7 @@ void main() {
   test('PageFetcher should drop pages when necessary', () async {
     final pageFetcher = PageFetcher<int, String>(
       config: const PagingConfig(pageSize: 20, maxSize: 80),
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
       initialState: const PagingState(),
     );
 
@@ -90,7 +90,7 @@ void main() {
   test('PageFetcher should be disposed correctly', () {
     final pageFetcher = PageFetcher<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
       initialState: const PagingState(),
     );
 
@@ -104,7 +104,7 @@ void main() {
       () async {
     final pageFetcher = PageFetcher<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
       initialState: const PagingState(),
     );
 
@@ -123,7 +123,7 @@ void main() {
     final pageFetcher = PageFetcher<int, String>(
       initialKey: 3,
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
       initialState: const PagingState(),
     );
 
@@ -142,7 +142,7 @@ void main() {
     const initialKey = 2;
     final pageFetcher = PageFetcher<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
       initialKey: initialKey,
       initialState: const PagingState(),
     );
@@ -157,7 +157,7 @@ void main() {
   test('PageFetcher should handle a refresh', () async {
     final pageFetcher = PageFetcher<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
       initialState: const PagingState(),
     );
 

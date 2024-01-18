@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:super_pager/super_pager.dart';
 
-import 'mock_paging_source.dart';
+import 'fake_paging_source.dart';
 
 const initialState = PagingState<int, String>(
   pages: PagingList(bottom: [
@@ -19,7 +19,7 @@ void main() {
     // Test initialization with a custom initial state.
     final superPager = SuperPager<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
       initialState: initialState,
     );
 
@@ -29,7 +29,7 @@ void main() {
   test('SuperPager should load data with load method', () async {
     final superPager = SuperPager<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
     );
 
     await superPager.load(LoadType.refresh);
@@ -41,7 +41,7 @@ void main() {
   test('SuperPager should refresh data with refresh method', () async {
     final superPager = SuperPager<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
     );
 
     await superPager.load(LoadType.refresh);
@@ -86,7 +86,7 @@ void main() {
   test('SuperPager should add and remove listeners correctly', () async {
     final superPager = SuperPager<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
     );
 
     int listenerCount = 0;
@@ -112,7 +112,7 @@ void main() {
   test('SuperPager should dispose correctly', () {
     final superPager = SuperPager<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
     );
 
     superPager.dispose();
@@ -125,7 +125,7 @@ void main() {
     final superPager = SuperPager<int, String>(
       config: const PagingConfig(pageSize: 20),
       // Ensure multiple pages
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
     );
 
     await superPager.load(LoadType.refresh);
@@ -145,7 +145,7 @@ void main() {
     final superPager = SuperPager<int, String>(
       config: const PagingConfig(pageSize: 20),
       // Ensure multiple pages
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
     );
 
     await superPager.load(LoadType.refresh);
@@ -164,7 +164,7 @@ void main() {
   test('SuperPager should correctly handle concurrency', () async {
     final superPager = SuperPager<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const MockPagingSource(),
+      pagingSource: const FakePagingSource(),
     );
 
     // Initial load.

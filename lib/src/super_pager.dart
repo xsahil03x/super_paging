@@ -45,6 +45,17 @@ class SuperPager<Key, Value>
     _pageFetcher.addListener(_onPageFetcherStateChange);
   }
 
+  @visibleForTesting
+  SuperPager.custom({
+    required PageFetcherFactory<Key, Value> pageFetcherFactory,
+    PagingState<Key, Value> initialState = const PagingState(),
+  })  : _notifier = ValueNotifier(initialState),
+        _pageFetcherFactory = pageFetcherFactory {
+    // Create a new page fetcher and listen to its state changes.
+    _pageFetcher = _pageFetcherFactory.call(initialState);
+    _pageFetcher.addListener(_onPageFetcherStateChange);
+  }
+
   // Called whenever the page fetcher's state changes.
   void _onPageFetcherStateChange() {
     _notifier.value = _pageFetcher.value;
@@ -72,25 +83,27 @@ class SuperPager<Key, Value>
   }
 
   /// Load data from the [PagingSource] represented by this [SuperPager].
-  Future<void> load(LoadType loadType) => _pageFetcher.load(loadType);
+  Future<void> load(LoadType loadType) {
+    return _pageFetcher.load(loadType);
+  }
 
-  /// Retry any failed load requests that would result in a [LoadState.Error] update to this
-  /// [PagingDataDiffer].
+  /// Retry any failed load requests that would result in a [LoadState.error]
+  /// update to this [PagingState].
   ///
-  /// Unlike [refresh], this does not invalidate [PagingSource], it only retries failed loads
-  /// within the same generation of [PagingData].
+  /// Unlike [refresh], this does not invalidate [PageFetcher], it only retries
+  /// failed loads within the same generation of [PageFetcher].
   ///
-  /// [LoadState.Error] can be generated from two types of load requests:
-  ///  * [PagingSource.load] returning [PagingSource.LoadResult.Error]
-  ///  * [RemoteMediator.load] returning [RemoteMediator.MediatorResult.Error]
+  /// [LoadState.error] can be generated from types of load requests:
+  ///  * [PagingSource.load] returning [LoadResult.error]
   Future<void> retry() => _pageFetcher.retry();
 
-  /// Refresh the data presented by this [PagingDataDiffer].
+  /// Refresh the data presented by this [SuperPager].
   ///
-  /// [refresh] triggers the creation of a new [PagingData] with a new instance of [PagingSource]
-  /// to represent an updated snapshot of the backing dataset.
+  /// [refresh] triggers the creation of a new [PagingState] with a new instance
+  /// of [PageFetcher] to represent an updated snapshot of the backing dataset.
   ///
-  /// Note: This API is intended for UI-driven refresh signals, such as swipe-to-refresh.
+  /// Note: This API is intended for UI-driven refresh signals, such as
+  /// swipe-to-refresh.
   Future<void> refresh({bool resetPages = true}) {
     final current = _pageFetcher;
 

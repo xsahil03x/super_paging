@@ -206,7 +206,7 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
     // Never drop below 2 pages as this can cause UI flickering with certain configs and it's
     // much more important to protect against this behaviour over respecting a config where
     // maxSize is set unusually (probably incorrectly) strict.
-    if (value.pages.length <= 2) return 0;
+    if (value.pages.length <= 3) return 0;
 
     if (value.pages.itemCount <= maxSize) return 0;
 

@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:super_pager/src/paging_source.dart';
 
-import 'mock_paging_source.dart';
+import 'fake_paging_source.dart';
 
 void main() {
   group('PagingSource', () {
     test('load method returns a LoadResult', () async {
-      const pagingSource = MockPagingSource();
+      const pagingSource = FakePagingSource();
 
       const loadParams = LoadParams<int>.refresh(key: null, loadSize: 10);
 

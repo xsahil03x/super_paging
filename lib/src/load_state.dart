@@ -4,16 +4,17 @@ part 'load_state.freezed.dart';
 
 /// LoadState of a PagedList load - associated with a [LoadType]
 ///
-/// [LoadState] of any [LoadType] may be observed for UI purposes by registering a listener via
-/// [androidx.paging.PagingDataAdapter.addLoadStateListener] or
-/// [androidx.paging.AsyncPagingDataDiffer.addLoadStateListener]
+/// [LoadState] of any [LoadType] may be observed for UI purposes by registering
+/// a listener via [SuperPager.addListener].
 ///
-/// [endOfPaginationReached] `false` if there is more data to load in the [LoadType] this
-/// [LoadState] is associated with, `true` otherwise. This parameter informs [Pager] if it
-/// should continue to make requests for additional data in this direction or if it should
-/// halt as the end of the dataset has been reached.
+/// [endOfPaginationReached] `false` if there is more data to load in the
+/// [LoadType] this [LoadState] is associated with, `true` otherwise.
+/// This parameter informs [Pager] if it should continue to make requests for
+/// additional data in this direction or if it should halt as the end of the
+/// dataset has been reached.
 ///
-/// @see LoadType
+/// also see:
+///  * [LoadType]
 @freezed
 sealed class LoadState with _$LoadState {
   /// Indicates the [PagingData] is not currently loading, and no error currently observed.

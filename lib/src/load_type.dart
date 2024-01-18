@@ -1,16 +1,15 @@
-/// Type of load a [PagingData] can trigger a [PagingSource] to perform.
+/// Type of load a [SuperPager] can trigger a [PageFetcher] to perform.
 ///
-/// [LoadState] of any [LoadType] may be observed for UI purposes by registering a listener via
-/// [androidx.paging.PagingDataAdapter.addLoadStateListener] or
-/// [androidx.paging.AsyncPagingDataDiffer.addLoadStateListener].
+/// [LoadState] of any [LoadType] may be observed for UI purposes by registering
+/// a listener via [SuperPager.addListener].
 enum LoadType {
-  /// [PagingData] content being refreshed, which can be a result of refresh
+  /// [SuperPager] content being refreshed, which can be a result of refresh
   /// that may contain content updates, or the initial load.
   refresh,
 
-  /// Load at the start of a [PagingData].
+  /// Load at the start of a [SuperPager].
   prepend,
 
-  /// Load at the end of a [PagingData].
+  /// Load at the end of a [SuperPager].
   append,
 }

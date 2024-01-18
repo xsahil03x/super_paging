@@ -1,7 +1,7 @@
 import 'package:super_pager/super_pager.dart';
 
-class MockPagingSource extends PagingSource<int, String> {
-  const MockPagingSource({this.totalPageCount = 100});
+class FakePagingSource extends PagingSource<int, String> {
+  const FakePagingSource({this.totalPageCount = 100});
 
   final int totalPageCount;
 

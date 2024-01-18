@@ -6,15 +6,16 @@ import 'preconditions.dart';
 
 part 'paging_source.freezed.dart';
 
-/// Base class for an abstraction of pageable static data from some source, where loading pages
-/// of data is typically an expensive operation. Some examples of common [PagingSource]s might be
-/// from network or from a database.
+/// Base class for an abstraction of pageable static data from some source,
+/// where loading pages of data is typically an expensive operation. Some
+/// examples of common [PagingSource]s might be from network or from a database.
 ///
-/// An instance of a [PagingSource] is used to load pages of data for an instance of [PagingData].
+/// An instance of a [PagingSource] is used to load pages of data for an
+/// instance of [PagingState].
 ///
-/// A [PagingData] can grow as it loads more data, but the data loaded cannot be updated. If the
-/// underlying data set is modified, a new [PagingSource] / [PagingData] pair must be created to
-/// represent an updated snapshot of the data.
+/// A [PagingState] can grow as it loads more data, but the data loaded cannot
+/// be updated. If the underlying data set is modified, a new [PagingSource]
+/// must be created to represent an updated snapshot of the data.
 ///
 /// ### Loading Pages
 ///
@@ -55,18 +56,16 @@ abstract mixin class PagingSource<Key, Value> {
 
   /// Loading API for [PagingSource].
   ///
-  /// Implement this method to trigger your async load (e.g. from database or network).
+  /// Implement this method to trigger your async load (e.g. from database or
+  /// network).
   Future<LoadResult<Key, Value>> load(LoadParams<Key> params);
-
-  @override
-  String toString() => describeIdentity(this);
 }
 
 /// Params for a load request on a [PagingSource] from [PagingSource.load].
 @freezed
 sealed class LoadParams<Key> with _$LoadParams<Key> {
-  /// Params for an initial load request on a [PagingSource] from [PagingSource.load] or a
-  /// refresh triggered by [invalidate].
+  /// Params for an initial load request on a [PagingSource] from
+  /// [PagingSource.load] or a refresh triggered by [invalidate].
   const factory LoadParams.refresh({
     /// Key for the page to be loaded.
     ///
