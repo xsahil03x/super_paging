@@ -5,9 +5,24 @@ import 'load_state.dart';
 import 'load_type.dart';
 import 'logger.dart';
 import 'paging_config.dart';
-import 'paging_source.dart' hide Error;
+import 'paging_source.dart';
 import 'paging_state.dart';
 
+/// A specialized [ValueNotifier] for handling paginated data loading with a
+/// [PagingSource].
+///
+/// This class manages loading of pages based on the provided [PagingSource],
+/// allowing for loading initial data, refreshing, and loading pages in both
+/// append and prepend directions. It maintains a [PagingState] that represents
+/// the current state of the paginated data, including loaded pages,
+/// loading states, and errors.
+///
+/// see also:
+///
+///  * [PagingState], which represents the current state of the paginated data.
+///  * [PagingConfig], which represents the configuration of the [PageFetcher].
+///  * [PagingSource], which represents the source of the paginated data.
+///  * [SuperPager], which uses a [PageFetcher] to load paginated data.
 class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
   PageFetcher({
     this.initialKey,
@@ -203,7 +218,7 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
     final maxSize = config.maxSize;
     if (maxSize == null) return 0;
 
-    // Never drop below 2 pages as this can cause UI flickering with certain configs and it's
+    // Never drop below 3 pages as this can cause UI flickering with certain configs and it's
     // much more important to protect against this behaviour over respecting a config where
     // maxSize is set unusually (probably incorrectly) strict.
     if (value.pages.length <= 3) return 0;
@@ -311,7 +326,7 @@ extension<Key, Value> on PagingState<Key, Value> {
   /// [PagingState].
   PagingState<Key, Value> insertPage(
     LoadType loadType,
-    Page<Key, Value> page,
+    LoadResultPage<Key, Value> page,
   ) {
     switch (loadType) {
       case LoadType.refresh:

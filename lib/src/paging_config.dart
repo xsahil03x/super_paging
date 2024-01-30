@@ -37,16 +37,12 @@ class PagingConfig {
   /// return a valid [Page].
   final int pageSize;
 
-  /// Prefetch index defines how far from the edge of loaded content an access must be to
-  /// trigger further loading. Typically should be set several times the number of visible items
-  /// onscreen.
+  /// Prefetch index defines how far from the edge of loaded content an access
+  /// must be to trigger further loading.
   ///
-  /// E.g., If this value is set to 50, a [PagingData] will attempt to load 50 items in advance of
-  /// data that's already been accessed.
-  ///
-  /// A value of 0 indicates that no list items will be loaded until they are specifically
-  /// requested. This is generally not recommended, so that users don't observe a
-  /// end of list while scrolling.
+  /// E.g., If this value is set to 3, a [SuperPager] will attempt to load the
+  /// next page in advance when the user scrolls within 3 items of the end of
+  /// currently loaded content.
   final int prefetchIndex;
 
   /// Defines requested load size for initial load from [PagingSource],

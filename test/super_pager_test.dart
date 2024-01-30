@@ -7,7 +7,7 @@ import 'fake_paging_source.dart';
 
 const initialState = PagingState<int, String>(
   pages: PagingList(bottom: [
-    Page(items: ['Item 1', 'Item 2'], prevKey: null, nextKey: 2),
+    LoadResultPage(items: ['Item 1', 'Item 2'], prevKey: null, nextKey: 2),
   ]),
   refreshLoadState: LoadState.notLoadingComplete,
   prependLoadState: LoadState.notLoadingComplete,

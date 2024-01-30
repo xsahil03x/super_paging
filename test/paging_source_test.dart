@@ -51,9 +51,9 @@ void main() {
       );
 
       // Check if the parameters are initialized correctly
-      expect(loadResult, isA<Page<String, String>>());
+      expect(loadResult, isA<LoadResultPage<String, String>>());
 
-      loadResult = loadResult as Page<String, String>;
+      loadResult = loadResult as LoadResultPage<String, String>;
       expect(loadResult.items, ['Item 1', 'Item 2']);
       expect(loadResult.prevKey, 'prevKey');
       expect(loadResult.nextKey, 'nextKey');
@@ -63,8 +63,8 @@ void main() {
       var loadResult = LoadResult.error(Exception('An error occurred'));
 
       // Check if the parameters are initialized correctly
-      expect(loadResult, isA<Error>());
-      loadResult = loadResult as Error;
+      expect(loadResult, isA<LoadResultError>());
+      loadResult = loadResult as LoadResultError;
       expect(loadResult.error, isA<Exception>());
     });
   });
@@ -78,9 +78,9 @@ void main() {
     );
 
     // Check if the parameters are initialized correctly
-    expect(loadResult, isA<Page<String, String>>());
+    expect(loadResult, isA<LoadResultPage<String, String>>());
 
-    loadResult = loadResult as Page<String, String>;
+    loadResult = loadResult as LoadResultPage<String, String>;
     expect(loadResult.prevKey, isNull);
     expect(loadResult.nextKey, isNull);
   });
@@ -93,9 +93,9 @@ void main() {
     );
 
     // Check if the parameters are initialized correctly
-    expect(loadResult, isA<Page<String, String>>());
+    expect(loadResult, isA<LoadResultPage<String, String>>());
 
-    loadResult = loadResult as Page<String, String>;
+    loadResult = loadResult as LoadResultPage<String, String>;
     expect(loadResult.items, isEmpty);
   });
 }

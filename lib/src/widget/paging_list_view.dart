@@ -4,6 +4,15 @@ import 'package:super_pager/src/widget/paging_sliver_list.dart';
 
 import 'common.dart';
 
+/// A Flutter widget that represents a paginated list, capable of displaying
+/// various states such as loading, error, empty, and the actual list of items.
+///
+/// It is designed to work with the [SuperPager] for efficient pagination and
+/// state management.
+///
+/// see also:
+///
+///  * [PagingSliverList], which is the sliver version of this widget.
 class PagingListView<Key, Value> extends BoxScrollView {
   const PagingListView({
     super.key,
@@ -103,6 +112,7 @@ class PagingListView<Key, Value> extends BoxScrollView {
 
   @override
   Widget buildChildLayout(BuildContext context) {
+    ListView.builder(itemBuilder: itemBuilder);
     if (separatorBuilder != null) {
       return PagingSliverList.separated(
         pager: pager,

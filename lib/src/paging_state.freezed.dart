@@ -17,7 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PagingState<Key, Value> {
   /// List with all the pages loaded so far.
-  PagingList<Page<Key, Value>> get pages => throw _privateConstructorUsedError;
+  PagingList<LoadResultPage<Key, Value>> get pages =>
+      throw _privateConstructorUsedError;
 
   /// Load state of the initial page.
   LoadState get refreshLoadState => throw _privateConstructorUsedError;
@@ -40,7 +41,7 @@ abstract class $PagingStateCopyWith<Key, Value, $Res> {
       _$PagingStateCopyWithImpl<Key, Value, $Res, PagingState<Key, Value>>;
   @useResult
   $Res call(
-      {PagingList<Page<Key, Value>> pages,
+      {PagingList<LoadResultPage<Key, Value>> pages,
       LoadState refreshLoadState,
       LoadState prependLoadState,
       LoadState appendLoadState});
@@ -73,7 +74,7 @@ class _$PagingStateCopyWithImpl<Key, Value, $Res,
       pages: null == pages
           ? _value.pages
           : pages // ignore: cast_nullable_to_non_nullable
-              as PagingList<Page<Key, Value>>,
+              as PagingList<LoadResultPage<Key, Value>>,
       refreshLoadState: null == refreshLoadState
           ? _value.refreshLoadState
           : refreshLoadState // ignore: cast_nullable_to_non_nullable
@@ -123,7 +124,7 @@ abstract class _$$PagingStateImplCopyWith<Key, Value, $Res>
   @override
   @useResult
   $Res call(
-      {PagingList<Page<Key, Value>> pages,
+      {PagingList<LoadResultPage<Key, Value>> pages,
       LoadState refreshLoadState,
       LoadState prependLoadState,
       LoadState appendLoadState});
@@ -157,7 +158,7 @@ class __$$PagingStateImplCopyWithImpl<Key, Value, $Res>
       pages: null == pages
           ? _value.pages
           : pages // ignore: cast_nullable_to_non_nullable
-              as PagingList<Page<Key, Value>>,
+              as PagingList<LoadResultPage<Key, Value>>,
       refreshLoadState: null == refreshLoadState
           ? _value.refreshLoadState
           : refreshLoadState // ignore: cast_nullable_to_non_nullable
@@ -186,7 +187,7 @@ class _$PagingStateImpl<Key, Value> implements _PagingState<Key, Value> {
   /// List with all the pages loaded so far.
   @override
   @JsonKey()
-  final PagingList<Page<Key, Value>> pages;
+  final PagingList<LoadResultPage<Key, Value>> pages;
 
   /// Load state of the initial page.
   @override
@@ -240,7 +241,7 @@ class _$PagingStateImpl<Key, Value> implements _PagingState<Key, Value> {
 
 abstract class _PagingState<Key, Value> implements PagingState<Key, Value> {
   const factory _PagingState(
-      {final PagingList<Page<Key, Value>> pages,
+      {final PagingList<LoadResultPage<Key, Value>> pages,
       final LoadState refreshLoadState,
       final LoadState prependLoadState,
       final LoadState appendLoadState}) = _$PagingStateImpl<Key, Value>;
@@ -248,7 +249,7 @@ abstract class _PagingState<Key, Value> implements PagingState<Key, Value> {
   @override
 
   /// List with all the pages loaded so far.
-  PagingList<Page<Key, Value>> get pages;
+  PagingList<LoadResultPage<Key, Value>> get pages;
   @override
 
   /// Load state of the initial page.

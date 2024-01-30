@@ -16,21 +16,19 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$LoadParams<Key> {
-/**
-     * Key for the page to be loaded.
-     *
-     * [key] can be `null` only if this [LoadParams] is [Refresh], and either no `initialKey`
-     * is provided to the [Pager] or [PagingSource.getRefreshKey] from the previous
-     * [PagingSource] returns `null`.
-     *
-     * The value of [key] is dependent on the type of [LoadParams]:
-     *  * [Refresh]
-     *      * On initial load, the nullable `initialKey` passed to the [Pager].
-     *      * On subsequent loads due to invalidation or refresh, the result of
-     *      [PagingSource.getRefreshKey].
-     *  * [Prepend] - [LoadResult.Page.prevKey] of the loaded page at the front of the list.
-     *  * [Append] - [LoadResult.Page.nextKey] of the loaded page at the end of the list.
-     */
+  /// Key for the page to be loaded.
+  ///
+  /// [key] can be `null` only if this [LoadParams] is [Refresh], and either no `initialKey`
+  /// is provided to the [Pager] or [PagingSource.getRefreshKey] from the previous
+  /// [PagingSource] returns `null`.
+  ///
+  /// The value of [key] is dependent on the type of [LoadParams]:
+  ///  * [Refresh]
+  ///      * On initial load, the nullable `initialKey` passed to the [Pager].
+  ///      * On subsequent loads due to invalidation or refresh, the result of
+  ///      [PagingSource.getRefreshKey].
+  ///  * [Prepend] - [LoadResult.Page.prevKey] of the loaded page at the front of the list.
+  ///  * [Append] - [LoadResult.Page.nextKey] of the loaded page at the end of the list.
   Key? get key => throw _privateConstructorUsedError;
   int get loadSize => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -159,21 +157,19 @@ class __$$RefreshImplCopyWithImpl<Key, $Res>
 class _$RefreshImpl<Key> with DiagnosticableTreeMixin implements Refresh<Key> {
   const _$RefreshImpl({this.key, required this.loadSize});
 
-/**
-     * Key for the page to be loaded.
-     *
-     * [key] can be `null` only if this [LoadParams] is [Refresh], and either no `initialKey`
-     * is provided to the [Pager] or [PagingSource.getRefreshKey] from the previous
-     * [PagingSource] returns `null`.
-     *
-     * The value of [key] is dependent on the type of [LoadParams]:
-     *  * [Refresh]
-     *      * On initial load, the nullable `initialKey` passed to the [Pager].
-     *      * On subsequent loads due to invalidation or refresh, the result of
-     *      [PagingSource.getRefreshKey].
-     *  * [Prepend] - [LoadResult.Page.prevKey] of the loaded page at the front of the list.
-     *  * [Append] - [LoadResult.Page.nextKey] of the loaded page at the end of the list.
-     */
+  /// Key for the page to be loaded.
+  ///
+  /// [key] can be `null` only if this [LoadParams] is [Refresh], and either no `initialKey`
+  /// is provided to the [Pager] or [PagingSource.getRefreshKey] from the previous
+  /// [PagingSource] returns `null`.
+  ///
+  /// The value of [key] is dependent on the type of [LoadParams]:
+  ///  * [Refresh]
+  ///      * On initial load, the nullable `initialKey` passed to the [Pager].
+  ///      * On subsequent loads due to invalidation or refresh, the result of
+  ///      [PagingSource.getRefreshKey].
+  ///  * [Prepend] - [LoadResult.Page.prevKey] of the loaded page at the front of the list.
+  ///  * [Append] - [LoadResult.Page.nextKey] of the loaded page at the end of the list.
   @override
   final Key? key;
   @override
@@ -287,21 +283,20 @@ abstract class Refresh<Key> implements LoadParams<Key> {
       _$RefreshImpl<Key>;
 
   @override
-  /**
-     * Key for the page to be loaded.
-     *
-     * [key] can be `null` only if this [LoadParams] is [Refresh], and either no `initialKey`
-     * is provided to the [Pager] or [PagingSource.getRefreshKey] from the previous
-     * [PagingSource] returns `null`.
-     *
-     * The value of [key] is dependent on the type of [LoadParams]:
-     *  * [Refresh]
-     *      * On initial load, the nullable `initialKey` passed to the [Pager].
-     *      * On subsequent loads due to invalidation or refresh, the result of
-     *      [PagingSource.getRefreshKey].
-     *  * [Prepend] - [LoadResult.Page.prevKey] of the loaded page at the front of the list.
-     *  * [Append] - [LoadResult.Page.nextKey] of the loaded page at the end of the list.
-     */
+
+  /// Key for the page to be loaded.
+  ///
+  /// [key] can be `null` only if this [LoadParams] is [Refresh], and either no `initialKey`
+  /// is provided to the [Pager] or [PagingSource.getRefreshKey] from the previous
+  /// [PagingSource] returns `null`.
+  ///
+  /// The value of [key] is dependent on the type of [LoadParams]:
+  ///  * [Refresh]
+  ///      * On initial load, the nullable `initialKey` passed to the [Pager].
+  ///      * On subsequent loads due to invalidation or refresh, the result of
+  ///      [PagingSource.getRefreshKey].
+  ///  * [Prepend] - [LoadResult.Page.prevKey] of the loaded page at the front of the list.
+  ///  * [Append] - [LoadResult.Page.nextKey] of the loaded page at the end of the list.
   Key? get key;
   @override
   int get loadSize;
@@ -665,20 +660,20 @@ mixin _$LoadResult<Key, Value> {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Page<Key, Value> value) page,
-    required TResult Function(Error<Key, Value> value) error,
+    required TResult Function(LoadResultPage<Key, Value> value) page,
+    required TResult Function(LoadResultError<Key, Value> value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Page<Key, Value> value)? page,
-    TResult? Function(Error<Key, Value> value)? error,
+    TResult? Function(LoadResultPage<Key, Value> value)? page,
+    TResult? Function(LoadResultError<Key, Value> value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Page<Key, Value> value)? page,
-    TResult Function(Error<Key, Value> value)? error,
+    TResult Function(LoadResultPage<Key, Value> value)? page,
+    TResult Function(LoadResultError<Key, Value> value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -704,20 +699,21 @@ class _$LoadResultCopyWithImpl<Key, Value, $Res,
 }
 
 /// @nodoc
-abstract class _$$PageImplCopyWith<Key, Value, $Res> {
-  factory _$$PageImplCopyWith(_$PageImpl<Key, Value> value,
-          $Res Function(_$PageImpl<Key, Value>) then) =
-      __$$PageImplCopyWithImpl<Key, Value, $Res>;
+abstract class _$$LoadResultPageImplCopyWith<Key, Value, $Res> {
+  factory _$$LoadResultPageImplCopyWith(_$LoadResultPageImpl<Key, Value> value,
+          $Res Function(_$LoadResultPageImpl<Key, Value>) then) =
+      __$$LoadResultPageImplCopyWithImpl<Key, Value, $Res>;
   @useResult
   $Res call({List<Value> items, Key? prevKey, Key? nextKey});
 }
 
 /// @nodoc
-class __$$PageImplCopyWithImpl<Key, Value, $Res>
-    extends _$LoadResultCopyWithImpl<Key, Value, $Res, _$PageImpl<Key, Value>>
-    implements _$$PageImplCopyWith<Key, Value, $Res> {
-  __$$PageImplCopyWithImpl(_$PageImpl<Key, Value> _value,
-      $Res Function(_$PageImpl<Key, Value>) _then)
+class __$$LoadResultPageImplCopyWithImpl<Key, Value, $Res>
+    extends _$LoadResultCopyWithImpl<Key, Value, $Res,
+        _$LoadResultPageImpl<Key, Value>>
+    implements _$$LoadResultPageImplCopyWith<Key, Value, $Res> {
+  __$$LoadResultPageImplCopyWithImpl(_$LoadResultPageImpl<Key, Value> _value,
+      $Res Function(_$LoadResultPageImpl<Key, Value>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -727,7 +723,7 @@ class __$$PageImplCopyWithImpl<Key, Value, $Res>
     Object? prevKey = freezed,
     Object? nextKey = freezed,
   }) {
-    return _then(_$PageImpl<Key, Value>(
+    return _then(_$LoadResultPageImpl<Key, Value>(
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
@@ -746,10 +742,10 @@ class __$$PageImplCopyWithImpl<Key, Value, $Res>
 
 /// @nodoc
 
-class _$PageImpl<Key, Value>
+class _$LoadResultPageImpl<Key, Value>
     with DiagnosticableTreeMixin
-    implements Page<Key, Value> {
-  const _$PageImpl(
+    implements LoadResultPage<Key, Value> {
+  const _$LoadResultPageImpl(
       {required final List<Value> items, this.prevKey, this.nextKey})
       : _items = items;
 
@@ -793,7 +789,7 @@ class _$PageImpl<Key, Value>
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PageImpl<Key, Value> &&
+            other is _$LoadResultPageImpl<Key, Value> &&
             const DeepCollectionEquality().equals(other._items, _items) &&
             const DeepCollectionEquality().equals(other.prevKey, prevKey) &&
             const DeepCollectionEquality().equals(other.nextKey, nextKey));
@@ -809,9 +805,9 @@ class _$PageImpl<Key, Value>
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PageImplCopyWith<Key, Value, _$PageImpl<Key, Value>> get copyWith =>
-      __$$PageImplCopyWithImpl<Key, Value, _$PageImpl<Key, Value>>(
-          this, _$identity);
+  _$$LoadResultPageImplCopyWith<Key, Value, _$LoadResultPageImpl<Key, Value>>
+      get copyWith => __$$LoadResultPageImplCopyWithImpl<Key, Value,
+          _$LoadResultPageImpl<Key, Value>>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -848,8 +844,8 @@ class _$PageImpl<Key, Value>
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Page<Key, Value> value) page,
-    required TResult Function(Error<Key, Value> value) error,
+    required TResult Function(LoadResultPage<Key, Value> value) page,
+    required TResult Function(LoadResultError<Key, Value> value) error,
   }) {
     return page(this);
   }
@@ -857,8 +853,8 @@ class _$PageImpl<Key, Value>
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Page<Key, Value> value)? page,
-    TResult? Function(Error<Key, Value> value)? error,
+    TResult? Function(LoadResultPage<Key, Value> value)? page,
+    TResult? Function(LoadResultError<Key, Value> value)? error,
   }) {
     return page?.call(this);
   }
@@ -866,8 +862,8 @@ class _$PageImpl<Key, Value>
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Page<Key, Value> value)? page,
-    TResult Function(Error<Key, Value> value)? error,
+    TResult Function(LoadResultPage<Key, Value> value)? page,
+    TResult Function(LoadResultError<Key, Value> value)? error,
     required TResult orElse(),
   }) {
     if (page != null) {
@@ -877,11 +873,11 @@ class _$PageImpl<Key, Value>
   }
 }
 
-abstract class Page<Key, Value> implements LoadResult<Key, Value> {
-  const factory Page(
+abstract class LoadResultPage<Key, Value> implements LoadResult<Key, Value> {
+  const factory LoadResultPage(
       {required final List<Value> items,
       final Key? prevKey,
-      final Key? nextKey}) = _$PageImpl<Key, Value>;
+      final Key? nextKey}) = _$LoadResultPageImpl<Key, Value>;
 
   /// Loaded items.
   List<Value> get items;
@@ -894,25 +890,27 @@ abstract class Page<Key, Value> implements LoadResult<Key, Value> {
   /// `null` otherwise.
   Key? get nextKey;
   @JsonKey(ignore: true)
-  _$$PageImplCopyWith<Key, Value, _$PageImpl<Key, Value>> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$LoadResultPageImplCopyWith<Key, Value, _$LoadResultPageImpl<Key, Value>>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ErrorImplCopyWith<Key, Value, $Res> {
-  factory _$$ErrorImplCopyWith(_$ErrorImpl<Key, Value> value,
-          $Res Function(_$ErrorImpl<Key, Value>) then) =
-      __$$ErrorImplCopyWithImpl<Key, Value, $Res>;
+abstract class _$$LoadResultErrorImplCopyWith<Key, Value, $Res> {
+  factory _$$LoadResultErrorImplCopyWith(
+          _$LoadResultErrorImpl<Key, Value> value,
+          $Res Function(_$LoadResultErrorImpl<Key, Value>) then) =
+      __$$LoadResultErrorImplCopyWithImpl<Key, Value, $Res>;
   @useResult
   $Res call({Object? error});
 }
 
 /// @nodoc
-class __$$ErrorImplCopyWithImpl<Key, Value, $Res>
-    extends _$LoadResultCopyWithImpl<Key, Value, $Res, _$ErrorImpl<Key, Value>>
-    implements _$$ErrorImplCopyWith<Key, Value, $Res> {
-  __$$ErrorImplCopyWithImpl(_$ErrorImpl<Key, Value> _value,
-      $Res Function(_$ErrorImpl<Key, Value>) _then)
+class __$$LoadResultErrorImplCopyWithImpl<Key, Value, $Res>
+    extends _$LoadResultCopyWithImpl<Key, Value, $Res,
+        _$LoadResultErrorImpl<Key, Value>>
+    implements _$$LoadResultErrorImplCopyWith<Key, Value, $Res> {
+  __$$LoadResultErrorImplCopyWithImpl(_$LoadResultErrorImpl<Key, Value> _value,
+      $Res Function(_$LoadResultErrorImpl<Key, Value>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -920,7 +918,7 @@ class __$$ErrorImplCopyWithImpl<Key, Value, $Res>
   $Res call({
     Object? error = freezed,
   }) {
-    return _then(_$ErrorImpl<Key, Value>(
+    return _then(_$LoadResultErrorImpl<Key, Value>(
       freezed == error ? _value.error : error,
     ));
   }
@@ -928,10 +926,10 @@ class __$$ErrorImplCopyWithImpl<Key, Value, $Res>
 
 /// @nodoc
 
-class _$ErrorImpl<Key, Value>
+class _$LoadResultErrorImpl<Key, Value>
     with DiagnosticableTreeMixin
-    implements Error<Key, Value> {
-  const _$ErrorImpl([this.error]);
+    implements LoadResultError<Key, Value> {
+  const _$LoadResultErrorImpl([this.error]);
 
   @override
   final Object? error;
@@ -953,7 +951,7 @@ class _$ErrorImpl<Key, Value>
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErrorImpl<Key, Value> &&
+            other is _$LoadResultErrorImpl<Key, Value> &&
             const DeepCollectionEquality().equals(other.error, error));
   }
 
@@ -964,9 +962,9 @@ class _$ErrorImpl<Key, Value>
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ErrorImplCopyWith<Key, Value, _$ErrorImpl<Key, Value>> get copyWith =>
-      __$$ErrorImplCopyWithImpl<Key, Value, _$ErrorImpl<Key, Value>>(
-          this, _$identity);
+  _$$LoadResultErrorImplCopyWith<Key, Value, _$LoadResultErrorImpl<Key, Value>>
+      get copyWith => __$$LoadResultErrorImplCopyWithImpl<Key, Value,
+          _$LoadResultErrorImpl<Key, Value>>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1003,8 +1001,8 @@ class _$ErrorImpl<Key, Value>
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Page<Key, Value> value) page,
-    required TResult Function(Error<Key, Value> value) error,
+    required TResult Function(LoadResultPage<Key, Value> value) page,
+    required TResult Function(LoadResultError<Key, Value> value) error,
   }) {
     return error(this);
   }
@@ -1012,8 +1010,8 @@ class _$ErrorImpl<Key, Value>
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Page<Key, Value> value)? page,
-    TResult? Function(Error<Key, Value> value)? error,
+    TResult? Function(LoadResultPage<Key, Value> value)? page,
+    TResult? Function(LoadResultError<Key, Value> value)? error,
   }) {
     return error?.call(this);
   }
@@ -1021,8 +1019,8 @@ class _$ErrorImpl<Key, Value>
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Page<Key, Value> value)? page,
-    TResult Function(Error<Key, Value> value)? error,
+    TResult Function(LoadResultPage<Key, Value> value)? page,
+    TResult Function(LoadResultError<Key, Value> value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1032,11 +1030,12 @@ class _$ErrorImpl<Key, Value>
   }
 }
 
-abstract class Error<Key, Value> implements LoadResult<Key, Value> {
-  const factory Error([final Object? error]) = _$ErrorImpl<Key, Value>;
+abstract class LoadResultError<Key, Value> implements LoadResult<Key, Value> {
+  const factory LoadResultError([final Object? error]) =
+      _$LoadResultErrorImpl<Key, Value>;
 
   Object? get error;
   @JsonKey(ignore: true)
-  _$$ErrorImplCopyWith<Key, Value, _$ErrorImpl<Key, Value>> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$LoadResultErrorImplCopyWith<Key, Value, _$LoadResultErrorImpl<Key, Value>>
+      get copyWith => throw _privateConstructorUsedError;
 }

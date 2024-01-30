@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:super_pager/src/widget/bidirectional_paging_list_view.dart';
 
 import 'load_type.dart';
 import 'logger.dart';
@@ -11,14 +12,25 @@ typedef PageFetcherFactory<Key, Value> = PageFetcher<Key, Value> Function(
   PagingState<Key, Value> initialState,
 );
 
-/// A [SuperPager] that uses a [PagedListenable] to load data.
+/// A higher-level abstraction for managing paginated data using a
+/// [PagingSource].
 ///
-/// This class is useful when you need to load data from a server
-/// using a [PagedListenable] and want to keep the UI-driven refresh
-/// signals in the [PagedListenable].
+/// The [SuperPager] class facilitates the coordination of a [PageFetcher] with
+/// its associated [PagingSource], providing methods for loading data,
+/// retrying failed loads, and refreshing the dataset.
 ///
-/// [SuperPager] is a [StateNotifier] that emits a [PagingState]
-/// whenever the data is loaded or an error occurs.
+/// It implements [ValueListenable] to allow observers to listen for changes in
+/// the [PagingState] of the paginated data.
+///
+/// [SuperPager] is designed to be used with [PagingListView] and
+/// [BidirectionalPagingListView] to display the paginated data but can be used
+/// with any widget that consumes a [ValueListenable].
+///
+/// see also:
+///
+///  * [PagingSource], which is the source of data for this [SuperPager].
+///  * [PagingState], which represents the state of the paginated data.
+///  * [PagingConfig], which configures the behavior of this [SuperPager].
 class SuperPager<Key, Value>
     implements ValueListenable<PagingState<Key, Value>> {
   /// Creates a [SuperPager]

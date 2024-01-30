@@ -1,5 +1,5 @@
 import 'package:flutter/gestures.dart';
-import 'package:flutter/widgets.dart' hide Page;
+import 'package:flutter/widgets.dart';
 import 'package:super_pager/src/load_state.dart';
 import 'package:super_pager/src/load_type.dart';
 import 'package:super_pager/src/paging_source.dart';
@@ -8,6 +8,19 @@ import 'package:super_pager/src/super_pager.dart';
 
 import 'common.dart';
 
+/// A Flutter widget that represents a bidirectional paginated list view,
+/// capable of displaying various states such as loading, error, empty, and
+/// the actual list of items.
+///
+/// It supports lazy loading in both directions (prepend and append)
+/// simultaneously.
+///
+/// This widget works seamlessly with the [SuperPager] for efficient pagination
+/// and state management.
+///
+/// see also:
+///
+///  * [PagingListView], which is the unidirectional version of this widget.
 class BidirectionalPagingListView<Key, Value> extends StatefulWidget {
   const BidirectionalPagingListView({
     super.key,
@@ -275,7 +288,7 @@ class _BidirectionalPagingListViewState<Key, Value>
 
   Widget _buildPageList(
     BuildContext context, {
-    required PagingList<Page<Key, Value>> pages,
+    required PagingList<LoadResultPage<Key, Value>> pages,
     required LoadState prependLoadState,
     required LoadState appendLoadState,
   }) {
@@ -436,7 +449,7 @@ class _BidirectionalPagingListViewState<Key, Value>
   }
 
   SliverChildBuilderDelegate _createDelegate(
-    List<Page<Key, Value>> pages, {
+    List<LoadResultPage<Key, Value>> pages, {
     bool reverse = false,
     VoidCallback? onBuildingPrependLoadTriggerItem,
     VoidCallback? onBuildingAppendLoadTriggerItem,

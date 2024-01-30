@@ -1,6 +1,18 @@
-import 'package:flutter/widgets.dart' hide Page;
+import 'package:flutter/widgets.dart';
 import 'package:super_pager/super_pager.dart';
 
+/// A Flutter widget that represents a paginated sliver list, capable of
+/// displaying various states such as loading, error, empty, and the actual list
+/// of items.
+///
+/// It is designed to work with the [SuperPager] for efficient pagination and
+/// state management.
+///
+/// see also:
+///
+///  * <https://flutter.dev/docs/development/ui/advanced/slivers>, a description
+///    of what slivers are and how to use them.
+///  * [PagingListView], a list view version of this widget.
 class PagingSliverList<Key, Value> extends StatefulWidget {
   const PagingSliverList({
     super.key,
@@ -170,7 +182,7 @@ class _PagingSliverListState<Key, Value>
   Widget _buildPageList(
     BuildContext context, {
     required LoadState prependLoadState,
-    required PagingList<Page<Key, Value>> pages,
+    required PagingList<LoadResultPage<Key, Value>> pages,
     required LoadState appendLoadState,
   }) {
     return SliverMainAxisGroup(
@@ -240,7 +252,7 @@ class _PagingSliverListState<Key, Value>
   }
 
   SliverChildDelegate _createDelegate(
-    List<Page<Key, Value>> pages, {
+    List<LoadResultPage<Key, Value>> pages, {
     VoidCallback? onBuildingPrependLoadTriggerItem,
     VoidCallback? onBuildingAppendLoadTriggerItem,
   }) {

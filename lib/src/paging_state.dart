@@ -16,7 +16,7 @@ sealed class PagingState<Key, Value> with _$PagingState<Key, Value> {
   /// Creates a [PagingState] with the provided parameters.
   const factory PagingState({
     /// List with all the pages loaded so far.
-    @Default(PagingList()) PagingList<Page<Key, Value>> pages,
+    @Default(PagingList()) PagingList<LoadResultPage<Key, Value>> pages,
 
     /// Load state of the initial page.
     @Default(LoadState.notLoadingIncomplete) LoadState refreshLoadState,
@@ -29,7 +29,7 @@ sealed class PagingState<Key, Value> with _$PagingState<Key, Value> {
   }) = _PagingState<Key, Value>;
 
   /// Creates a [PagingState] from the provided [pages].
-  factory PagingState.fromPages(List<Page<Key, Value>> pages) {
+  factory PagingState.fromPages(List<LoadResultPage<Key, Value>> pages) {
     if (pages.isEmpty) return const PagingState();
 
     return PagingState(
@@ -45,7 +45,7 @@ sealed class PagingState<Key, Value> with _$PagingState<Key, Value> {
   }
 }
 
-extension PagingListExtension<Key, Value> on List<Page<Key, Value>> {
+extension PagingListExtension<Key, Value> on List<LoadResultPage<Key, Value>> {
   /// Returns the [Key] for the previous page to be fetched if available,
   /// `null` otherwise.
   Key? get prevKey => firstOrNull?.prevKey;

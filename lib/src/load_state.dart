@@ -13,16 +13,20 @@ part 'load_state.freezed.dart';
 /// additional data in this direction or if it should halt as the end of the
 /// dataset has been reached.
 ///
-/// also see:
-///  * [LoadType]
+/// see also:
+///
+///  * [LoadType], which represents the type of load operation that generated
+///    this [LoadState].
 @freezed
 sealed class LoadState with _$LoadState {
-  /// Indicates the [PagingData] is not currently loading, and no error currently observed.
+  /// Indicates the [PagingData] is not currently loading, and no error
+  /// currently observed.
   ///
-  /// [endOfPaginationReached] `false` if there is more data to load in the [LoadType] this
-  /// [LoadState] is associated with, `true` otherwise. This parameter informs [Pager] if it
-  /// should continue to make requests for additional data in this direction or if it should
-  /// halt as the end of the dataset has been reached.
+  /// [endOfPaginationReached] `false` if there is more data to load in the
+  /// [LoadType] this [LoadState] is associated with, `true` otherwise.
+  /// This parameter informs [Pager] if it should continue to make requests for
+  /// additional data in this direction or if it should halt as the end of the
+  /// dataset has been reached.
   const factory LoadState.notLoading({
     required bool endOfPaginationReached,
   }) = NotLoading;
@@ -35,8 +39,9 @@ sealed class LoadState with _$LoadState {
 
   /// Loading hit an error.
   ///
-  /// @param error [Throwable] that caused the load operation to generate this error state.
+  /// see also:
   ///
-  /// @see androidx.paging.PagedList.retry
+  ///  * [SuperPager.retry], which can be called to retry the load operation
+  ///  that generated this error state.
   const factory LoadState.error([Object? error]) = Error;
 }
