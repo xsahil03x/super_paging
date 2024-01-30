@@ -9,7 +9,36 @@ class PagingListView<Key, Value> extends BoxScrollView {
     super.key,
     required this.pager,
     required this.itemBuilder,
-    this.separatorBuilder,
+    required this.emptyBuilder,
+    required this.errorBuilder,
+    required this.loadingBuilder,
+    this.appendStateBuilder = defaultAppendStateBuilder,
+    this.prependStateBuilder = defaultPrependStateBuilder,
+    super.scrollDirection,
+    super.reverse,
+    super.controller,
+    super.primary,
+    super.physics,
+    super.shrinkWrap,
+    super.padding,
+    this.findChildIndexCallback,
+    this.addAutomaticKeepAlives = true,
+    this.addRepaintBoundaries = true,
+    this.addSemanticIndexes = true,
+    super.cacheExtent,
+    int? semanticChildCount,
+    super.dragStartBehavior,
+    super.keyboardDismissBehavior,
+    super.restorationId,
+    super.clipBehavior,
+  })  : separatorBuilder = null,
+        super(semanticChildCount: semanticChildCount);
+
+  const PagingListView.separated({
+    super.key,
+    required this.pager,
+    required this.itemBuilder,
+    required this.separatorBuilder,
     required this.emptyBuilder,
     required this.errorBuilder,
     required this.loadingBuilder,
@@ -74,10 +103,26 @@ class PagingListView<Key, Value> extends BoxScrollView {
 
   @override
   Widget buildChildLayout(BuildContext context) {
+    if (separatorBuilder != null) {
+      return PagingSliverList.separated(
+        pager: pager,
+        itemBuilder: itemBuilder,
+        separatorBuilder: separatorBuilder,
+        emptyBuilder: emptyBuilder,
+        errorBuilder: errorBuilder,
+        loadingBuilder: loadingBuilder,
+        appendStateBuilder: appendStateBuilder,
+        prependStateBuilder: prependStateBuilder,
+        findChildIndexCallback: findChildIndexCallback,
+        addAutomaticKeepAlives: addAutomaticKeepAlives,
+        addRepaintBoundaries: addRepaintBoundaries,
+        addSemanticIndexes: addSemanticIndexes,
+      );
+    }
+
     return PagingSliverList(
       pager: pager,
       itemBuilder: itemBuilder,
-      separatorBuilder: separatorBuilder,
       emptyBuilder: emptyBuilder,
       errorBuilder: errorBuilder,
       loadingBuilder: loadingBuilder,
