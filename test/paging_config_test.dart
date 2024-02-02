@@ -8,7 +8,10 @@ void main() {
 
       expect(pagingConfig.pageSize, 10);
       expect(pagingConfig.prefetchIndex, 3);
-      expect(pagingConfig.initialLoadSize, 10 * PagingConfig.initialPageMultiplier);
+      expect(
+        pagingConfig.initialLoadSize,
+        10 * PagingConfig.initialPageMultiplier,
+      );
       expect(pagingConfig.maxSize, isNull);
     });
 

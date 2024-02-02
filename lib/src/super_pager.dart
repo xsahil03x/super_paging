@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:super_pager/src/widget/bidirectional_paging_list_view.dart';
 
+import 'load_state.dart';
 import 'load_type.dart';
 import 'logger.dart';
 import 'page_fetcher.dart';
@@ -151,4 +152,22 @@ class SuperPager<Key, Value>
     _pageFetcher.dispose();
     _notifier.dispose();
   }
+}
+
+/// Extension methods for [SuperPager].
+extension SuperPagerExtension<Key, Value> on SuperPager<Key, Value> {
+  /// Returns all the loaded items accumulated from pager.
+  Iterable<Value> get items => pages.items;
+
+  /// List with all the pages loaded so far.
+  PagingList<LoadResultPage<Key, Value>> get pages => value.pages;
+
+  /// Load state of the initial page.
+  LoadState get refreshLoadState => value.refreshLoadState;
+
+  /// Load state of the previous page.
+  LoadState get prependLoadState => value.prependLoadState;
+
+  /// Load state of the next page.
+  LoadState get appendLoadState => value.appendLoadState;
 }

@@ -45,7 +45,7 @@ class _RickAndMortyPageState extends State<RickAndMortyPage> {
       body: BidirectionalPagingListView(
         pager: rickAndMortyPager,
         itemBuilder: (BuildContext context, int index) {
-          final item = rickAndMortyPager.value.pages.items.elementAt(index);
+          final item = rickAndMortyPager.items.elementAt(index);
 
           return ListTile(
             title: Text(item.name),

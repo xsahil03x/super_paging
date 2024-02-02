@@ -177,4 +177,49 @@ void main() {
     // Ensure concurrent load requests do not interfere with each other.
     await Future.wait([loadFuture1, loadFuture2]);
   });
+
+  group('SuperPagerExtension', () {
+    late SuperPager<int, String> superPager;
+
+    setUp(() {
+      superPager = SuperPager<int, String>(
+        config: const PagingConfig(pageSize: 20),
+        pagingSource: const FakePagingSource(),
+        initialState: initialState,
+      );
+    });
+
+    test('items should return all loaded items', () {
+      final loadedItems = superPager.items;
+      expect(loadedItems.length, equals(2));
+    });
+
+    test('pages should return a list with all loaded pages', () {
+      final loadedPages = superPager.pages;
+      expect(loadedPages.length, equals(1));
+    });
+
+    test(
+      'refreshLoadState should return the load state of the initial page',
+      () {
+        final loadState = superPager.refreshLoadState;
+        expect(loadState, equals(LoadState.notLoadingComplete));
+        // Add more assertions based on your specific use case
+      },
+    );
+
+    test('prependLoadState should return the load state of the previous page',
+        () {
+      final loadState = superPager.prependLoadState;
+      expect(loadState, equals(LoadState.notLoadingComplete));
+    });
+
+    test('appendLoadState should return the load state of the next page', () {
+      final LoadState loadState = superPager.appendLoadState;
+      expect(
+        loadState,
+        equals(const LoadState.notLoading(endOfPaginationReached: false)),
+      );
+    });
+  });
 }

@@ -45,6 +45,7 @@ sealed class PagingState<Key, Value> with _$PagingState<Key, Value> {
   }
 }
 
+/// Extension methods for [PagingList].
 extension PagingListExtension<Key, Value> on List<LoadResultPage<Key, Value>> {
   /// Returns the [Key] for the previous page to be fetched if available,
   /// `null` otherwise.
