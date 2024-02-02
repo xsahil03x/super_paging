@@ -53,8 +53,6 @@ class PagingSliverList<Key, Value> extends StatefulWidget {
   final SuperPager<Key, Value> pager;
 
   /// A builder that is called to build items in the [ListView].
-  ///
-  /// The `value` parameter is the [Value] at this position in the list.
   final IndexedWidgetBuilder itemBuilder;
 
   /// A builder that is called to build the list separator.
