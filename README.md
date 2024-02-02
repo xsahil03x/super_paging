@@ -1,8 +1,13 @@
-# SuperPager
+# Super Pager
 
-[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://opensource.org/licenses/MIT) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/xsahil03x/multi_trigger_autocomplete/blob/master/LICENSE) [![Dart CI](https://github.com/xsahil03x/super_pager/workflows/super_pager/badge.svg)](https://github.com/xsahil03x/super_pager/actions)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/xsahil03x/multi_trigger_autocomplete/blob/master/LICENSE)
+[![Dart CI](https://github.com/xsahil03x/super_pager/workflows/super_pager/badge.svg)](https://github.com/xsahil03x/super_pager/actions)
+[![Version](https://img.shields.io/pub/v/super_pager.svg)](https://pub.dartlang.org/packages/super_pager)
 
-Simplify Flutter pagination with SuperPager — A super package providing efficient data management, in-memory caching, configurable widgets and built-in error handling for a seamless pagination experience.
+Simplify Flutter pagination with Super Pager — A super package providing efficient data management, in-memory caching, configurable widgets and built-in error handling for a seamless pagination experience.
+
+Live Demo: https://xsahil03x.github.io/super_pager
 
 **Show some ❤️ and star the repo to support the project**
 
@@ -63,9 +68,9 @@ Create a `SuperPager` Instance:
 
 ```dart
 final pager = SuperPager(
-  initialKey: 1, // Initial page to load.
-  config: const PagingConfig(pageSize: 20, maxSize: 400), // 20 items per page, maximum of 400 items.
-  pagingSource: RickAndMortySource(api: RickAndMortyApi()), // Your custom paging source.
+  initialKey: 1,
+  config: const PagingConfig(pageSize: 20, maxSize: 400),
+  pagingSource: RickAndMortySource(api: RickAndMortyApi()),
 );
 ```
 
