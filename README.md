@@ -11,9 +11,9 @@ Live Demo: https://xsahil03x.github.io/super_pager
 
 **Show some ❤️ and star the repo to support the project**
 
-<p>
+<kbd>
   <img src="https://github.com/xsahil03x/super_pager/blob/main/asset/package_demo.gif?raw=true" alt="An animated image of the SuperPager" height="400"/>
-</p>
+</kbd>
 
 ## Features
 
@@ -123,12 +123,6 @@ void dispose() {
   super.dispose();
 }
 ```
-
-## Demo
-
-| Mention Autocomplete                                                 | Hashtag Autocomplete                                                        | Emoji Autocomplete                                                      |
-|----------------------------------------------------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| <img src="https://github.com/xsahil03x/multi_trigger_autocomplete/blob/master/asset/mention_demo.gif?raw=true" height="400" alt="Mention Autocomplete"/> | <img src="https://github.com/xsahil03x/multi_trigger_autocomplete/blob/master/asset/hashtag_demo.gif?raw=true" height="400" alt="Hashtag Autocomplete"/> | <img src="https://github.com/xsahil03x/multi_trigger_autocomplete/blob/master/asset/emoji_demo.gif?raw=true" height="400" alt="Emoji Autocomplete"/> |
 
 ## Customization
 
