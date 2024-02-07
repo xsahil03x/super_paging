@@ -71,31 +71,33 @@ Widget? _defaultLoadMoreStateBuilder<K, V>(
       if (endOfPaginationReached) return null;
 
       // Show a simple tile to trigger loading more.
-      return ListTile(
-        title: const Text('Load more'),
-        trailing: IconButton(
-          icon: const Icon(Icons.refresh),
-          onPressed: () => pager.load(type),
+      return InkWell(
+        onTap: () => pager.load(type),
+        child: const ListTile(
+          title: Text('Load more'),
+          trailing: Icon(Icons.refresh_rounded),
         ),
       );
     },
     loading: () {
       // Show a simple circular progress indicator to indicate loading.
-      return const Center(
-        child: SizedBox(
-          height: 16,
-          width: 16,
-          child: CircularProgressIndicator.adaptive(),
+      return const ListTile(
+        title: Center(
+          child: SizedBox(
+            height: 16,
+            width: 16,
+            child: CircularProgressIndicator.adaptive(),
+          ),
         ),
       );
     },
     error: (e) {
       // Show a retry tile if there was an error loading data.
-      return ListTile(
-        title: const Text('Error loading data!'),
-        trailing: IconButton(
-          icon: const Icon(Icons.refresh),
-          onPressed: pager.retry,
+      return InkWell(
+        onTap: pager.retry,
+        child: const ListTile(
+          title: Text('Error loading data!'),
+          trailing: Icon(Icons.refresh_rounded),
         ),
       );
     },
