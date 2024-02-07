@@ -150,7 +150,8 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
         final params = _loadParams(loadType, loadKey);
 
         log.fine(
-            'Start $loadType with loadKey $loadKey on $pagingSource in ${describeIdentity(this)}');
+          'Start $loadType with loadKey $loadKey on $pagingSource in ${describeIdentity(this)}',
+        );
 
         final result = await _withCancellationScope(
           token: _cancellationToken,
@@ -203,7 +204,8 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
         if (pagesToDropCount <= 0) return;
 
         log.fine(
-            'Dropping $pagesToDropCount pages for $dropType in ${describeIdentity(this)}');
+          'Dropping $pagesToDropCount pages for $dropType in ${describeIdentity(this)}',
+        );
 
         // Drop pages.
         value = value.dropPages(dropType, pageCount: pagesToDropCount);
@@ -211,9 +213,9 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
     );
   }
 
-  // @return [PageEvent.Drop] for [loadType] that would allow this [PageFetcher] to
-  // respect [PagingConfig.maxSize], `null` if no pages should be dropped for the provided
-  // [loadType].
+  /// Returns number of pages to drop for [loadType] that would allow this
+  /// [PageFetcher] to respect [PagingConfig.maxSize], `0` if no pages should be
+  /// dropped for the provided [loadType].
   int _pagesToDropCount(LoadType loadType) {
     final maxSize = config.maxSize;
     if (maxSize == null) return 0;
@@ -250,6 +252,8 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
     return pagesToDrop;
   }
 
+  /// Returns the key to use to load the next page for the given [loadType] or
+  /// null if we should stop loading in this direction.
   Key? _nextLoadKeyOrNull(LoadType loadType) {
     return switch (loadType) {
       LoadType.prepend => _nextPrependKey,
@@ -258,8 +262,8 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
     };
   }
 
-  // The key to use to load next page to prepend or null if we should stop
-  // loading in this direction.
+  /// The key to use to load next page to prepend or null if we should stop
+  /// loading in this direction.
   Key? get _nextPrependKey {
     final currentValue = value;
     if (currentValue.pages.isEmpty) return null;
@@ -269,8 +273,8 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
     return currentValue.pages.first.prevKey;
   }
 
-  // The key to use to load next page to append or null if we should stop
-  // loading in this direction.
+  /// The key to use to load next page to append or null if we should stop
+  /// loading in this direction.
   Key? get _nextAppendKey {
     final currentValue = value;
     if (currentValue.pages.isEmpty) return null;
