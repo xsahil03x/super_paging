@@ -12,7 +12,7 @@ Live Demo: https://xsahil03x.github.io/super_pager
 **Show some ❤️ and star the repo to support the project**
 
 <p>
-  <img src="https://github.com/xsahil03x/super_pager/blob/master/asset/package_demo.gif?raw=true" alt="An animated image of the SuperPager" height="400"/>
+  <img src="https://github.com/xsahil03x/super_pager/blob/main/asset/package_demo.gif?raw=true" alt="An animated image of the SuperPager" height="400"/>
 </p>
 
 ## Features
