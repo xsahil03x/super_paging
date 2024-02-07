@@ -259,6 +259,10 @@ class _PagingSliverListState<Key, Value>
     final prefetchIndex = pager.config.prefetchIndex;
 
     void generatePrependAppendLoadTriggerNotification(int index) {
+      // If there is no prefetch index, we don't have to generate any
+      // notification.
+      if (prefetchIndex == null) return;
+
       // Generate prepend notification.
       if (index == prefetchIndex) {
         onBuildingPrependLoadTriggerItem?.call();

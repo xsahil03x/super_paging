@@ -150,6 +150,9 @@ SuperPager(
     //
     // By default, the pager will start loading when the user scrolls
     // within 3 items of the end of the loaded content.
+    //
+    // If set to null, the pager will not start loading more content until
+    // they are specifically requested by the user.
     prefetchIndex: 3,
     
     // Defines the maximum number of items to keep in memory before

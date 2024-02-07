@@ -460,6 +460,10 @@ class _BidirectionalPagingListViewState<Key, Value>
 
     // Helper function to generate prepend and append load trigger notifications
     void generatePrependAppendLoadTriggerNotification(int index) {
+      // If there is no prefetch index, we don't need to generate any
+      // notifications.
+      if (fetchIndex == null) return;
+
       // Check if the index corresponds to near the top or bottom based on the
       // 'reverse' flag.
       final nearTop =

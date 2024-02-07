@@ -8,7 +8,7 @@ class PagingConfig {
     this.maxSize,
   })  : initialLoadSize = initialLoadSize ?? pageSize * initialPageMultiplier,
         assert(
-          prefetchIndex <= pageSize / 2,
+          prefetchIndex == null || prefetchIndex <= pageSize / 2,
           'Prefetch index must be less than pageSize / 2',
         ),
         assert(
@@ -43,7 +43,11 @@ class PagingConfig {
   /// E.g., If this value is set to 3, a [SuperPager] will attempt to load the
   /// next page in advance when the user scrolls within 3 items of the end of
   /// currently loaded content.
-  final int prefetchIndex;
+  ///
+  /// A value of `null` indicates that no list items will be loaded until they
+  /// are specifically requested. This is generally not recommended, so that
+  /// users don't observe a end of list while scrolling.
+  final int? prefetchIndex;
 
   /// Defines requested load size for initial load from [PagingSource],
   /// typically larger than [pageSize], so on first load data there's a large
