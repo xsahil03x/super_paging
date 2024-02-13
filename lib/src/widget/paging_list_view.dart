@@ -35,13 +35,12 @@ class PagingListView<Key, Value> extends BoxScrollView {
     this.addRepaintBoundaries = true,
     this.addSemanticIndexes = true,
     super.cacheExtent,
-    int? semanticChildCount,
+    super.semanticChildCount,
     super.dragStartBehavior,
     super.keyboardDismissBehavior,
     super.restorationId,
     super.clipBehavior,
-  })  : separatorBuilder = null,
-        super(semanticChildCount: semanticChildCount);
+  }) : separatorBuilder = null;
 
   const PagingListView.separated({
     super.key,
@@ -65,12 +64,12 @@ class PagingListView<Key, Value> extends BoxScrollView {
     this.addRepaintBoundaries = true,
     this.addSemanticIndexes = true,
     super.cacheExtent,
-    int? semanticChildCount,
+    super.semanticChildCount,
     super.dragStartBehavior,
     super.keyboardDismissBehavior,
     super.restorationId,
     super.clipBehavior,
-  }) : super(semanticChildCount: semanticChildCount);
+  });
 
   /// The [PagedValueNotifier] used to control the list of items.
   final SuperPager<Key, Value> pager;
@@ -110,7 +109,6 @@ class PagingListView<Key, Value> extends BoxScrollView {
 
   @override
   Widget buildChildLayout(BuildContext context) {
-    ListView.builder(itemBuilder: itemBuilder);
     if (separatorBuilder != null) {
       return PagingSliverList.separated(
         pager: pager,
