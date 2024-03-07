@@ -154,7 +154,7 @@ class Pager<Key, Value> implements ValueListenable<PagingState<Key, Value>> {
 }
 
 /// Extension methods for [Pager].
-extension SuperPagerExtension<Key, Value> on Pager<Key, Value> {
+extension PagerExtension<Key, Value> on Pager<Key, Value> {
   /// Returns all the loaded items accumulated from pager.
   Iterable<Value> get items => pages.items;
 
