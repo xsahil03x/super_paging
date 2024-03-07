@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 /// An object used to configure loading behavior within a [Pager], as it
 /// loads content from a [PagingSource].
 class PagingConfig {

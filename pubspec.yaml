@@ -16,7 +16,6 @@ dependencies:
   freezed_annotation: ^2.4.1
   cancellation_token: ^2.0.1
   logging: ^1.2.0
-  meta: ^1.9.1
 
 dev_dependencies:
   flutter_test:
