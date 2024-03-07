@@ -14,7 +14,7 @@ import 'common.dart';
 ///
 ///  * [PagingSliverList], which is the sliver version of this widget.
 class PagingListView<Key, Value> extends BoxScrollView {
-  const PagingListView({
+  PagingListView({
     super.key,
     required this.pager,
     required this.itemBuilder,
@@ -40,9 +40,13 @@ class PagingListView<Key, Value> extends BoxScrollView {
     super.keyboardDismissBehavior,
     super.restorationId,
     super.clipBehavior,
-  }) : separatorBuilder = null;
+  })  : separatorBuilder = null,
+        assert(
+          pager.config.maxSize == null,
+          'PagingListView does not support maxSize',
+        );
 
-  const PagingListView.separated({
+  PagingListView.separated({
     super.key,
     required this.pager,
     required this.itemBuilder,
@@ -69,7 +73,10 @@ class PagingListView<Key, Value> extends BoxScrollView {
     super.keyboardDismissBehavior,
     super.restorationId,
     super.clipBehavior,
-  });
+  }) : assert(
+          pager.config.maxSize == null,
+          'PagingListView does not support maxSize',
+        );
 
   /// The [PagedValueNotifier] used to control the list of items.
   final Pager<Key, Value> pager;

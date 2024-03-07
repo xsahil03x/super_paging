@@ -7,7 +7,7 @@ class PagingConfig {
     required this.pageSize,
     this.prefetchIndex = 3,
     int? initialLoadSize,
-    @experimental this.maxSize,
+    this.maxSize,
   })  : initialLoadSize = initialLoadSize ?? pageSize * initialPageMultiplier,
         assert(
           prefetchIndex == null || prefetchIndex <= pageSize / 2,
@@ -81,6 +81,5 @@ class PagingConfig {
   ///  * Pages are never dropped until there are more than two pages loaded.
   ///  Note that a [PagingSource] may not be held strictly to [pageSize], so
   /// two pages may be larger than expected.
-  @experimental
   final int? maxSize;
 }

@@ -14,7 +14,7 @@ import 'package:super_paging/super_paging.dart';
 ///    of what slivers are and how to use them.
 ///  * [PagingListView], a list view version of this widget.
 class PagingSliverList<Key, Value> extends StatefulWidget {
-  const PagingSliverList({
+  PagingSliverList({
     super.key,
     required this.pager,
     required this.itemBuilder,
@@ -29,9 +29,13 @@ class PagingSliverList<Key, Value> extends StatefulWidget {
     this.addAutomaticKeepAlives = true,
     this.addRepaintBoundaries = true,
     this.addSemanticIndexes = true,
-  }) : separatorBuilder = null;
+  })  : separatorBuilder = null,
+        assert(
+          pager.config.maxSize == null,
+          'PagingSliverList does not support maxSize',
+        );
 
-  const PagingSliverList.separated({
+  PagingSliverList.separated({
     super.key,
     required this.pager,
     required this.itemBuilder,
@@ -47,7 +51,10 @@ class PagingSliverList<Key, Value> extends StatefulWidget {
     this.addAutomaticKeepAlives = true,
     this.addRepaintBoundaries = true,
     this.addSemanticIndexes = true,
-  });
+  }) : assert(
+          pager.config.maxSize == null,
+          'maxSize is not supported in sliver list',
+        );
 
   /// The [PagedValueNotifier] used to control the list of items.
   final Pager<Key, Value> pager;

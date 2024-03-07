@@ -69,7 +69,7 @@ Create a `Pager` Instance:
 ```dart
 final pager = Pager(
   initialKey: 1,
-  config: const PagingConfig(pageSize: 20, maxSize: 400),
+  config: const PagingConfig(pageSize: 20, initialLoadSize: 60),
   pagingSource: RickAndMortySource(api: RickAndMortyApi()),
 );
 ```

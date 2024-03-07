@@ -22,7 +22,7 @@ import 'common.dart';
 ///
 ///  * [PagingListView], which is the unidirectional version of this widget.
 class BidirectionalPagingListView<Key, Value> extends StatefulWidget {
-  const BidirectionalPagingListView({
+  BidirectionalPagingListView({
     super.key,
     required this.pager,
     required this.itemBuilder,
@@ -49,9 +49,13 @@ class BidirectionalPagingListView<Key, Value> extends StatefulWidget {
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
     this.restorationId,
     this.clipBehavior = Clip.hardEdge,
-  }) : separatorBuilder = null;
+  })  : separatorBuilder = null,
+        assert(
+          pager.config.maxSize == null,
+          'BidirectionalPagingListView does not support maxSize',
+        );
 
-  const BidirectionalPagingListView.separated({
+  BidirectionalPagingListView.separated({
     super.key,
     required this.pager,
     required this.itemBuilder,
@@ -79,7 +83,10 @@ class BidirectionalPagingListView<Key, Value> extends StatefulWidget {
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
     this.restorationId,
     this.clipBehavior = Clip.hardEdge,
-  });
+  }) : assert(
+          pager.config.maxSize == null,
+          'BidirectionalPagingListView does not support maxSize',
+        );
 
   /// The [PagedValueNotifier] used to control the list of items.
   final Pager<Key, Value> pager;
