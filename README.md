@@ -12,20 +12,20 @@ Live Demo: https://xsahil03x.github.io/super_paging
 **Show some ❤️ and star the repo to support the project**
 
 <kbd>
-  <img src="https://github.com/xsahil03x/super_paging/blob/main/asset/package_demo.gif?raw=true" alt="An animated image of the SuperPager" height="400"/>
+  <img src="https://github.com/xsahil03x/super_paging/blob/main/asset/package_demo.gif?raw=true" alt="An animated image of the SuperPaging" height="400"/>
 </kbd>
 
 ## Features
 
-- **Efficient Pagination:** Seamlessly integrate SuperPager with Flutter for efficient paginated data management, ensuring a smooth user experience with large datasets.
+- **Efficient Pagination:** Seamlessly integrate SuperPaging with Flutter for efficient paginated data management, ensuring a smooth user experience with large datasets.
 
 - **In-memory Caching:** Benefit from in-memory caching for paged data, optimizing system resources and enhancing overall application performance.
 
-- **Error Handling and Recovery:** SuperPager includes built-in support for error handling, empowering your app to recover gracefully from errors with features like refresh and retry capabilities.
+- **Error Handling and Recovery:** SuperPaging includes built-in support for error handling, empowering your app to recover gracefully from errors with features like refresh and retry capabilities.
 
 - **State Management:** Leverage powerful state management with widgets like `PagingListView` and `BidirectionalPagingListView`, enabling the display of paginated data with support for loading, error, empty, and the actual list of items.
 
-- **Flexible Configuration:** Tailor your pagination experience to your specific needs using the versatile SuperPager class. Configure initial keys, page sizes, and more to achieve the desired behavior.
+- **Flexible Configuration:** Tailor your pagination experience to your specific needs using the versatile Pager class. Configure initial keys, page sizes, and more to achieve the desired behavior.
 
 ## Installation
 
@@ -64,10 +64,10 @@ class RickAndMortySource extends PagingSource<int, Character> {
 }
 ```
 
-Create a `SuperPager` Instance:
+Create a `Pager` Instance:
 
 ```dart
-final pager = SuperPager(
+final pager = Pager(
   initialKey: 1,
   config: const PagingConfig(pageSize: 20, maxSize: 400),
   pagingSource: RickAndMortySource(api: RickAndMortyApi()),
@@ -126,10 +126,10 @@ void dispose() {
 
 ## Customization
 
-### SuperPager
+### Pager
 
 ```dart
-SuperPager(
+Pager(
   // Defines the initial key to use for the first load.
   //
   // By default, the initial key is null.
