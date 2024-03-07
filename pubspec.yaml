@@ -1,6 +1,6 @@
 name: super_paging
 homepage: https://github.com/xsahil03x/super_paging
-description: Add pagination or load more functionality to your flutter list view with ease.
+description: Add pagination or load more or infinite scrolling functionality to your flutter list view with ease.
 version: 1.0.0
 repository: https://github.com/xsahil03x/super_paging
 issue_tracker: https://github.com/xsahil03x/super_paging/issues
