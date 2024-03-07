@@ -39,7 +39,7 @@ dependencies:
   logging: ^1.2.0
   http: ^1.1.0
   json_annotation: ^4.8.1
-  super_pager:
+  super_paging:
     path: ../
 
 dev_dependencies:

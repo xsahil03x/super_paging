@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../load_state.dart';
 import '../load_type.dart';
-import '../super_pager.dart';
+import '../pager.dart';
 
 typedef PagingStateLoadingBuilder = WidgetBuilder;
 typedef PagingStateEmptyBuilder = WidgetBuilder;
@@ -15,13 +15,13 @@ typedef PagingStateErrorBuilder = Widget Function(
 typedef PrependStateBuilder<K, V> = Widget? Function(
   BuildContext context,
   LoadState state,
-  SuperPager<K, V> pager,
+  Pager<K, V> pager,
 );
 
 typedef AppendStateBuilder<K, V> = Widget? Function(
   BuildContext context,
   LoadState state,
-  SuperPager<K, V> pager,
+  Pager<K, V> pager,
 );
 
 typedef HeaderBuilder = WidgetBuilder;
@@ -31,7 +31,7 @@ typedef FooterBuilder = WidgetBuilder;
 Widget? defaultPrependStateBuilder<K, V>(
   BuildContext context,
   LoadState state,
-  SuperPager<K, V> pager,
+  Pager<K, V> pager,
 ) {
   return _defaultLoadMoreStateBuilder(
     context,
@@ -45,7 +45,7 @@ Widget? defaultPrependStateBuilder<K, V>(
 Widget? defaultAppendStateBuilder<K, V>(
   BuildContext context,
   LoadState state,
-  SuperPager<K, V> pager,
+  Pager<K, V> pager,
 ) {
   return _defaultLoadMoreStateBuilder(
     context,
@@ -60,7 +60,7 @@ Widget? _defaultLoadMoreStateBuilder<K, V>(
   BuildContext context,
   LoadType type,
   LoadState state,
-  SuperPager<K, V> pager,
+  Pager<K, V> pager,
 ) {
   return state.when(
     notLoading: (endOfPaginationReached) {

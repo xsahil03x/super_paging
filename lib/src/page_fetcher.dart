@@ -22,7 +22,7 @@ import 'paging_state.dart';
 ///  * [PagingState], which represents the current state of the paginated data.
 ///  * [PagingConfig], which represents the configuration of the [PageFetcher].
 ///  * [PagingSource], which represents the source of the paginated data.
-///  * [SuperPager], which uses a [PageFetcher] to load paginated data.
+///  * [Pager], which uses a [PageFetcher] to load paginated data.
 class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
   PageFetcher({
     this.initialKey,

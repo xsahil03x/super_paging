@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:super_pager/src/widget/bidirectional_paging_list_view.dart';
+import 'package:super_paging/src/widget/bidirectional_paging_list_view.dart';
 
 import 'load_state.dart';
 import 'load_type.dart';
@@ -16,26 +16,25 @@ typedef PageFetcherFactory<Key, Value> = PageFetcher<Key, Value> Function(
 /// A higher-level abstraction for managing paginated data using a
 /// [PagingSource].
 ///
-/// The [SuperPager] class facilitates the coordination of a [PageFetcher] with
+/// The [Pager] class facilitates the coordination of a [PageFetcher] with
 /// its associated [PagingSource], providing methods for loading data,
 /// retrying failed loads, and refreshing the dataset.
 ///
 /// It implements [ValueListenable] to allow observers to listen for changes in
 /// the [PagingState] of the paginated data.
 ///
-/// [SuperPager] is designed to be used with [PagingListView] and
+/// [Pager] is designed to be used with [PagingListView] and
 /// [BidirectionalPagingListView] to display the paginated data but can be used
 /// with any widget that consumes a [ValueListenable].
 ///
 /// see also:
 ///
-///  * [PagingSource], which is the source of data for this [SuperPager].
+///  * [PagingSource], which is the source of data for this [Pager].
 ///  * [PagingState], which represents the state of the paginated data.
-///  * [PagingConfig], which configures the behavior of this [SuperPager].
-class SuperPager<Key, Value>
-    implements ValueListenable<PagingState<Key, Value>> {
-  /// Creates a [SuperPager]
-  SuperPager({
+///  * [PagingConfig], which configures the behavior of this [Pager].
+class Pager<Key, Value> implements ValueListenable<PagingState<Key, Value>> {
+  /// Creates a new [Pager] with the provided [config] and [pagingSource].
+  Pager({
     Key? initialKey,
     required PagingConfig config,
     required PagingSource<Key, Value> pagingSource,
@@ -59,7 +58,7 @@ class SuperPager<Key, Value>
   }
 
   @visibleForTesting
-  SuperPager.custom({
+  Pager.custom({
     required PageFetcherFactory<Key, Value> pageFetcherFactory,
     PagingState<Key, Value> initialState = const PagingState(),
   })  : _notifier = ValueNotifier(initialState),
@@ -79,7 +78,7 @@ class SuperPager<Key, Value>
 
   final ValueNotifier<PagingState<Key, Value>> _notifier;
 
-  /// The [PagingConfig] used by this [SuperPager].
+  /// The [PagingConfig] used by this [Pager].
   PagingConfig get config => _pageFetcher.config;
 
   @override
@@ -95,7 +94,7 @@ class SuperPager<Key, Value>
     return _notifier.removeListener(listener);
   }
 
-  /// Load data from the [PagingSource] represented by this [SuperPager].
+  /// Load data from the [PagingSource] represented by this [Pager].
   Future<void> load(LoadType loadType) {
     return _pageFetcher.load(loadType);
   }
@@ -110,7 +109,7 @@ class SuperPager<Key, Value>
   ///  * [PagingSource.load] returning [LoadResult.error]
   Future<void> retry() => _pageFetcher.retry();
 
-  /// Refresh the data presented by this [SuperPager].
+  /// Refresh the data presented by this [Pager].
   ///
   /// [refresh] triggers the creation of a new [PagingState] with a new instance
   /// of [PageFetcher] to represent an updated snapshot of the backing dataset.
@@ -141,7 +140,7 @@ class SuperPager<Key, Value>
     return _pageFetcher.load(LoadType.refresh);
   }
 
-  /// Discards any resources used by the [SuperPager]. After this is called, the
+  /// Discards any resources used by the [Pager]. After this is called, the
   /// object is not in a usable state and should be discarded (calls to
   /// [addListener] will throw after the object is disposed).
   ///
@@ -154,8 +153,8 @@ class SuperPager<Key, Value>
   }
 }
 
-/// Extension methods for [SuperPager].
-extension SuperPagerExtension<Key, Value> on SuperPager<Key, Value> {
+/// Extension methods for [Pager].
+extension SuperPagerExtension<Key, Value> on Pager<Key, Value> {
   /// Returns all the loaded items accumulated from pager.
   Iterable<Value> get items => pages.items;
 

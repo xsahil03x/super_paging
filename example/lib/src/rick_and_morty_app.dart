@@ -1,7 +1,7 @@
 import 'package:example/src/rick_and_morty_api.dart';
 import 'package:example/src/rick_and_morty_source.dart';
 import 'package:flutter/material.dart';
-import 'package:super_pager/super_pager.dart';
+import 'package:super_paging/super_paging.dart';
 
 class RickAndMortyApp extends StatelessWidget {
   const RickAndMortyApp({super.key});
@@ -24,8 +24,8 @@ class RickAndMortyPage extends StatefulWidget {
 }
 
 class _RickAndMortyPageState extends State<RickAndMortyPage> {
-  late final rickAndMortyPager = SuperPager(
-    initialKey: 20, // Initial page to load.
+  late final rickAndMortyPager = Pager(
+    initialKey: 1, // Initial page to load.
     config: const PagingConfig(pageSize: 20, maxSize: 400),
     pagingSource: RickAndMortySource(api: RickAndMortyApi()),
   );
@@ -48,6 +48,7 @@ class _RickAndMortyPageState extends State<RickAndMortyPage> {
           final item = rickAndMortyPager.items.elementAt(index);
 
           return ListTile(
+            key: ValueKey(item.id),
             title: Text(item.name),
             subtitle: Text(item.species),
             trailing: Text('# ${item.id}'),

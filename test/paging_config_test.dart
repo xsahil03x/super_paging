@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:super_pager/src/paging_config.dart';
+import 'package:super_paging/src/paging_config.dart';
 
 void main() {
   group('PagingConfig', () {

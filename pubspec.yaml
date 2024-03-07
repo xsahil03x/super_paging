@@ -1,9 +1,9 @@
-name: super_pager
-homepage: https://github.com/xsahil03x/super_pager
+name: super_paging
+homepage: https://github.com/xsahil03x/super_paging
 description: Add pagination or load more functionality to your flutter list view with ease.
 version: 1.0.0
-repository: https://github.com/xsahil03x/super_pager
-issue_tracker: https://github.com/xsahil03x/super_pager/issues
+repository: https://github.com/xsahil03x/super_paging
+issue_tracker: https://github.com/xsahil03x/super_paging/issues
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
@@ -16,6 +16,7 @@ dependencies:
   freezed_annotation: ^2.4.1
   cancellation_token: ^2.0.1
   logging: ^1.2.0
+  meta: ^1.11.0
 
 dev_dependencies:
   flutter_test:
@@ -32,5 +33,5 @@ topics:
   - endless-scroll
 
 screenshots:
-  - description: 'Super Pager Demo'
+  - description: 'Super Paging Demo'
     path: asset/package_demo.gif

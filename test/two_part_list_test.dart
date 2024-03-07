@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:super_pager/src/two_part_list.dart';
+import 'package:super_paging/src/two_part_list.dart';
 
 void main() {
   group('TwoPartList', () {

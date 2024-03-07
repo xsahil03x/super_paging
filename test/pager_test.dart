@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:super_pager/super_pager.dart';
+import 'package:super_paging/super_paging.dart';
 
 import 'fake_paging_source.dart';
 
@@ -15,76 +15,76 @@ const initialState = PagingState<int, String>(
 );
 
 void main() {
-  test('SuperPager should be initialized with the provided initialState', () {
+  test('Pager should be initialized with the provided initialState', () {
     // Test initialization with a custom initial state.
-    final superPager = SuperPager<int, String>(
+    final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
       pagingSource: const FakePagingSource(),
       initialState: initialState,
     );
 
-    expect(superPager.value, equals(initialState));
+    expect(pager.value, equals(initialState));
   });
 
-  test('SuperPager should load data with load method', () async {
-    final superPager = SuperPager<int, String>(
+  test('Pager should load data with load method', () async {
+    final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
       pagingSource: const FakePagingSource(),
     );
 
-    await superPager.load(LoadType.refresh);
+    await pager.load(LoadType.refresh);
 
     // Assert that the value is not empty, indicating that data is loaded.
-    expect(superPager.value.pages, isNotEmpty);
+    expect(pager.value.pages, isNotEmpty);
   });
 
-  test('SuperPager should refresh data with refresh method', () async {
-    final superPager = SuperPager<int, String>(
+  test('Pager should refresh data with refresh method', () async {
+    final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
       pagingSource: const FakePagingSource(),
     );
 
-    await superPager.load(LoadType.refresh);
-    await superPager.load(LoadType.append);
-    final previousValue = superPager.value;
+    await pager.load(LoadType.refresh);
+    await pager.load(LoadType.append);
+    final previousValue = pager.value;
 
-    await superPager.refresh();
+    await pager.refresh();
 
     // Assert that the value has changed after refresh.
-    expect(superPager.value, isNot(equals(previousValue)));
+    expect(pager.value, isNot(equals(previousValue)));
   });
 
-  test('SuperPager should correctly handle error states', () async {
+  test('Pager should correctly handle error states', () async {
     final errorPagingSource = ErrorPagingSource(); // Simulated error source
-    final superPager = SuperPager<int, String>(
+    final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
       pagingSource: errorPagingSource,
     );
 
-    await superPager.load(LoadType.refresh);
+    await pager.load(LoadType.refresh);
 
     // Assert that the value contains an error state.
-    expect(superPager.value.refreshLoadState is Error, isTrue);
+    expect(pager.value.refreshLoadState is Error, isTrue);
   });
 
-  test('SuperPager should retry failed load requests', () async {
+  test('Pager should retry failed load requests', () async {
     final errorPagingSource = ErrorPagingSource(); // Simulated error source
-    final superPager = SuperPager<int, String>(
+    final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
       pagingSource: errorPagingSource,
     );
 
-    await superPager.load(LoadType.refresh);
-    final previousValue = superPager.value;
+    await pager.load(LoadType.refresh);
+    final previousValue = pager.value;
 
-    await superPager.retry();
+    await pager.retry();
 
     // Assert that the value has changed after the retry.
-    expect(superPager.value, isNot(equals(previousValue)));
+    expect(pager.value, isNot(equals(previousValue)));
   });
 
-  test('SuperPager should add and remove listeners correctly', () async {
-    final superPager = SuperPager<int, String>(
+  test('Pager should add and remove listeners correctly', () async {
+    final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
       pagingSource: const FakePagingSource(),
     );
@@ -96,93 +96,93 @@ void main() {
     }
 
     // Add listener and ensure it's triggered.
-    superPager.addListener(listener);
-    await superPager.load(LoadType.refresh);
+    pager.addListener(listener);
+    await pager.load(LoadType.refresh);
 
     expect(listenerCount, greaterThan(0));
 
     // Remove listener and ensure it's not triggered.
     final previousListenerCount = listenerCount;
-    superPager.removeListener(listener);
-    await superPager.load(LoadType.append);
+    pager.removeListener(listener);
+    await pager.load(LoadType.append);
 
     expect(listenerCount, equals(previousListenerCount));
   });
 
-  test('SuperPager should dispose correctly', () {
-    final superPager = SuperPager<int, String>(
+  test('Pager should dispose correctly', () {
+    final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
       pagingSource: const FakePagingSource(),
     );
 
-    superPager.dispose();
+    pager.dispose();
 
     // Adding a listener after disposal should throw an error.
-    expect(() => superPager.addListener(() {}), throwsA(isA<FlutterError>()));
+    expect(() => pager.addListener(() {}), throwsA(isA<FlutterError>()));
   });
 
-  test('SuperPager should handle multiple pages correctly', () async {
-    final superPager = SuperPager<int, String>(
+  test('Pager should handle multiple pages correctly', () async {
+    final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
       // Ensure multiple pages
       pagingSource: const FakePagingSource(),
     );
 
-    await superPager.load(LoadType.refresh);
+    await pager.load(LoadType.refresh);
 
     // Verify that the first page is loaded.
-    expect(superPager.value.pages.items, hasLength(60));
+    expect(pager.value.pages.items, hasLength(60));
 
     // Load more data (next page).
-    await superPager.load(LoadType.append);
+    await pager.load(LoadType.append);
 
     // Verify that the second page is loaded.
-    expect(superPager.value.pages.items, hasLength(80));
+    expect(pager.value.pages.items, hasLength(80));
   });
 
-  test('SuperPager should correctly handle resetting pages during refresh',
+  test('Pager should correctly handle resetting pages during refresh',
       () async {
-    final superPager = SuperPager<int, String>(
+    final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
       // Ensure multiple pages
       pagingSource: const FakePagingSource(),
     );
 
-    await superPager.load(LoadType.refresh);
-    await superPager.load(LoadType.append);
+    await pager.load(LoadType.refresh);
+    await pager.load(LoadType.append);
 
     // Verify that the items is loaded.
-    expect(superPager.value.pages.items, hasLength(80));
+    expect(pager.value.pages.items, hasLength(80));
 
     // Refresh data with resetting pages.
-    await superPager.refresh(resetPages: true);
+    await pager.refresh(resetPages: true);
 
     // Verify that the data is refreshed and pages are reset.
-    expect(superPager.value.pages.items, hasLength(60));
+    expect(pager.value.pages.items, hasLength(60));
   });
 
-  test('SuperPager should correctly handle concurrency', () async {
-    final superPager = SuperPager<int, String>(
+  test('Pager should correctly handle concurrency', () async {
+    final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
       pagingSource: const FakePagingSource(),
     );
 
     // Initial load.
-    await superPager.load(LoadType.refresh);
+    await pager.load(LoadType.refresh);
 
     // Concurrent load requests.
-    final loadFuture1 = superPager.load(LoadType.prepend);
-    final loadFuture2 = superPager.load(LoadType.append);
+    final loadFuture1 = pager.load(LoadType.prepend);
+    final loadFuture2 = pager.load(LoadType.append);
 
     // Ensure concurrent load requests do not interfere with each other.
     await Future.wait([loadFuture1, loadFuture2]);
   });
 
   group('SuperPagerExtension', () {
-    late SuperPager<int, String> superPager;
+    late Pager<int, String> pager;
 
     setUp(() {
-      superPager = SuperPager<int, String>(
+      pager = Pager<int, String>(
         config: const PagingConfig(pageSize: 20),
         pagingSource: const FakePagingSource(),
         initialState: initialState,
@@ -190,19 +190,19 @@ void main() {
     });
 
     test('items should return all loaded items', () {
-      final loadedItems = superPager.items;
+      final loadedItems = pager.items;
       expect(loadedItems.length, equals(2));
     });
 
     test('pages should return a list with all loaded pages', () {
-      final loadedPages = superPager.pages;
+      final loadedPages = pager.pages;
       expect(loadedPages.length, equals(1));
     });
 
     test(
       'refreshLoadState should return the load state of the initial page',
       () {
-        final loadState = superPager.refreshLoadState;
+        final loadState = pager.refreshLoadState;
         expect(loadState, equals(LoadState.notLoadingComplete));
         // Add more assertions based on your specific use case
       },
@@ -210,12 +210,12 @@ void main() {
 
     test('prependLoadState should return the load state of the previous page',
         () {
-      final loadState = superPager.prependLoadState;
+      final loadState = pager.prependLoadState;
       expect(loadState, equals(LoadState.notLoadingComplete));
     });
 
     test('appendLoadState should return the load state of the next page', () {
-      final LoadState loadState = superPager.appendLoadState;
+      final LoadState loadState = pager.appendLoadState;
       expect(
         loadState,
         equals(const LoadState.notLoading(endOfPaginationReached: false)),

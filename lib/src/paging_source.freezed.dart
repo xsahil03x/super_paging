@@ -18,17 +18,15 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$LoadParams<Key> {
   /// Key for the page to be loaded.
   ///
-  /// [key] can be `null` only if this [LoadParams] is [Refresh], and either no `initialKey`
-  /// is provided to the [Pager] or [PagingSource.getRefreshKey] from the previous
-  /// [PagingSource] returns `null`.
+  /// [key] can be `null` only if this [LoadParams] is [Refresh], and either
+  /// no `initialKey` is provided to the [Pager].
   ///
   /// The value of [key] is dependent on the type of [LoadParams]:
-  ///  * [Refresh]
-  ///      * On initial load, the nullable `initialKey` passed to the [Pager].
-  ///      * On subsequent loads due to invalidation or refresh, the result of
-  ///      [PagingSource.getRefreshKey].
-  ///  * [Prepend] - [LoadResult.Page.prevKey] of the loaded page at the front of the list.
-  ///  * [Append] - [LoadResult.Page.nextKey] of the loaded page at the end of the list.
+  ///  * [Refresh] - The nullable `initialKey` passed to the [Pager].
+  ///  * [Prepend] - [LoadResultPage.prevKey] of the loaded page at the front
+  ///    of the list.
+  ///  * [Append] - [LoadResultPage.nextKey] of the loaded page at the end of
+  ///    the list.
   Key? get key => throw _privateConstructorUsedError;
   int get loadSize => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -159,17 +157,15 @@ class _$RefreshImpl<Key> with DiagnosticableTreeMixin implements Refresh<Key> {
 
   /// Key for the page to be loaded.
   ///
-  /// [key] can be `null` only if this [LoadParams] is [Refresh], and either no `initialKey`
-  /// is provided to the [Pager] or [PagingSource.getRefreshKey] from the previous
-  /// [PagingSource] returns `null`.
+  /// [key] can be `null` only if this [LoadParams] is [Refresh], and either
+  /// no `initialKey` is provided to the [Pager].
   ///
   /// The value of [key] is dependent on the type of [LoadParams]:
-  ///  * [Refresh]
-  ///      * On initial load, the nullable `initialKey` passed to the [Pager].
-  ///      * On subsequent loads due to invalidation or refresh, the result of
-  ///      [PagingSource.getRefreshKey].
-  ///  * [Prepend] - [LoadResult.Page.prevKey] of the loaded page at the front of the list.
-  ///  * [Append] - [LoadResult.Page.nextKey] of the loaded page at the end of the list.
+  ///  * [Refresh] - The nullable `initialKey` passed to the [Pager].
+  ///  * [Prepend] - [LoadResultPage.prevKey] of the loaded page at the front
+  ///    of the list.
+  ///  * [Append] - [LoadResultPage.nextKey] of the loaded page at the end of
+  ///    the list.
   @override
   final Key? key;
   @override
@@ -286,17 +282,15 @@ abstract class Refresh<Key> implements LoadParams<Key> {
 
   /// Key for the page to be loaded.
   ///
-  /// [key] can be `null` only if this [LoadParams] is [Refresh], and either no `initialKey`
-  /// is provided to the [Pager] or [PagingSource.getRefreshKey] from the previous
-  /// [PagingSource] returns `null`.
+  /// [key] can be `null` only if this [LoadParams] is [Refresh], and either
+  /// no `initialKey` is provided to the [Pager].
   ///
   /// The value of [key] is dependent on the type of [LoadParams]:
-  ///  * [Refresh]
-  ///      * On initial load, the nullable `initialKey` passed to the [Pager].
-  ///      * On subsequent loads due to invalidation or refresh, the result of
-  ///      [PagingSource.getRefreshKey].
-  ///  * [Prepend] - [LoadResult.Page.prevKey] of the loaded page at the front of the list.
-  ///  * [Append] - [LoadResult.Page.nextKey] of the loaded page at the end of the list.
+  ///  * [Refresh] - The nullable `initialKey` passed to the [Pager].
+  ///  * [Prepend] - [LoadResultPage.prevKey] of the loaded page at the front
+  ///    of the list.
+  ///  * [Append] - [LoadResultPage.nextKey] of the loaded page at the end of
+  ///    the list.
   Key? get key;
   @override
   int get loadSize;

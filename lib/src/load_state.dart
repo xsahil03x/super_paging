@@ -5,7 +5,7 @@ part 'load_state.freezed.dart';
 /// LoadState of a PagedList load - associated with a [LoadType]
 ///
 /// [LoadState] of any [LoadType] may be observed for UI purposes by registering
-/// a listener via [SuperPager.addListener].
+/// a listener via [Pager.addListener].
 ///
 /// [endOfPaginationReached] `false` if there is more data to load in the
 /// [LoadType] this [LoadState] is associated with, `true` otherwise.
@@ -41,7 +41,7 @@ sealed class LoadState with _$LoadState {
   ///
   /// see also:
   ///
-  ///  * [SuperPager.retry], which can be called to retry the load operation
+  ///  * [Pager.retry], which can be called to retry the load operation
   ///  that generated this error state.
   const factory LoadState.error([Object? error]) = Error;
 }

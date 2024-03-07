@@ -1,11 +1,13 @@
-/// An object used to configure loading behavior within a [SuperPager], as it
+import 'package:meta/meta.dart';
+
+/// An object used to configure loading behavior within a [Pager], as it
 /// loads content from a [PagingSource].
 class PagingConfig {
   const PagingConfig({
     required this.pageSize,
     this.prefetchIndex = 3,
     int? initialLoadSize,
-    this.maxSize,
+    @experimental this.maxSize,
   })  : initialLoadSize = initialLoadSize ?? pageSize * initialPageMultiplier,
         assert(
           prefetchIndex == null || prefetchIndex <= pageSize / 2,
@@ -40,7 +42,7 @@ class PagingConfig {
   /// Prefetch index defines how far from the edge of loaded content an access
   /// must be to trigger further loading.
   ///
-  /// E.g., If this value is set to 3, a [SuperPager] will attempt to load the
+  /// E.g., If this value is set to 3, a [Pager] will attempt to load the
   /// next page in advance when the user scrolls within 3 items of the end of
   /// currently loaded content.
   ///
@@ -79,5 +81,6 @@ class PagingConfig {
   ///  * Pages are never dropped until there are more than two pages loaded.
   ///  Note that a [PagingSource] may not be held strictly to [pageSize], so
   /// two pages may be larger than expected.
+  @experimental
   final int? maxSize;
 }

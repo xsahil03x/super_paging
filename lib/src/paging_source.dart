@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:super_pager/src/paging_config.dart';
-import 'package:super_pager/src/super_pager.dart';
+import 'package:super_paging/src/paging_config.dart';
+import 'package:super_paging/src/pager.dart';
 
 import 'load_type.dart';
 import 'preconditions.dart';
@@ -17,10 +17,10 @@ part 'paging_source.freezed.dart';
 ///
 /// ### Loading Pages
 ///
-/// [SuperPager] queries data from its [PagingSource] in response to loading
+/// [Pager] queries data from its [PagingSource] in response to loading
 /// hints generated as the user scrolls in a `PagingListView`.
 ///
-/// To control how and when a [SuperPager] queries data from its [PagingSource],
+/// To control how and when a [Pager] queries data from its [PagingSource],
 /// see [PagingConfig], which defines behavior such as [PagingConfig.pageSize]
 /// and [PagingConfig.prefetchIndex].
 ///
@@ -62,8 +62,8 @@ part 'paging_source.freezed.dart';
 ///
 /// see also:
 ///
-///  * [SuperPager], which uses a [PagingSource] to load data.
-///  * [PagingConfig], which configures the behavior of a [SuperPager].
+///  * [Pager], which uses a [PagingSource] to load data.
+///  * [PagingConfig], which configures the behavior of a [Pager].
 abstract mixin class PagingSource<Key, Value> {
   const PagingSource();
 
@@ -83,10 +83,10 @@ sealed class LoadParams<Key> with _$LoadParams<Key> {
     /// Key for the page to be loaded.
     ///
     /// [key] can be `null` only if this [LoadParams] is [Refresh], and either
-    /// no `initialKey` is provided to the [SuperPager].
+    /// no `initialKey` is provided to the [Pager].
     ///
     /// The value of [key] is dependent on the type of [LoadParams]:
-    ///  * [Refresh] - The nullable `initialKey` passed to the [SuperPager].
+    ///  * [Refresh] - The nullable `initialKey` passed to the [Pager].
     ///  * [Prepend] - [LoadResultPage.prevKey] of the loaded page at the front
     ///    of the list.
     ///  * [Append] - [LoadResultPage.nextKey] of the loaded page at the end of

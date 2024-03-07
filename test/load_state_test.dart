@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:super_pager/src/load_state.dart';
+import 'package:super_paging/src/load_state.dart';
 
 void main() {
   group('LoadState', () {

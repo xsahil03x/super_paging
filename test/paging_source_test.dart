@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:super_pager/src/paging_source.dart';
+import 'package:super_paging/src/paging_source.dart';
 
 import 'fake_paging_source.dart';
 

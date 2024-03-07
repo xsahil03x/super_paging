@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:super_pager/src/page_fetcher.dart';
-import 'package:super_pager/super_pager.dart';
+import 'package:super_paging/src/page_fetcher.dart';
+import 'package:super_paging/super_paging.dart';
 
 import 'fake_paging_source.dart';
 

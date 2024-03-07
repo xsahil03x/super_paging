@@ -1,4 +1,4 @@
-import 'package:super_pager/super_pager.dart';
+import 'package:super_paging/super_paging.dart';
 
 class FakePagingSource extends PagingSource<int, String> {
   const FakePagingSource({this.totalPageCount = 100});

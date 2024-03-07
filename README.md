@@ -1,18 +1,18 @@
-# Super Pager
+# Super Paging
 
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://opensource.org/licenses/MIT)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/xsahil03x/multi_trigger_autocomplete/blob/master/LICENSE)
-[![Dart CI](https://github.com/xsahil03x/super_pager/workflows/super_pager/badge.svg)](https://github.com/xsahil03x/super_pager/actions)
-[![Version](https://img.shields.io/pub/v/super_pager.svg)](https://pub.dartlang.org/packages/super_pager)
+[![Dart CI](https://github.com/xsahil03x/super_paging/workflows/super_paging/badge.svg)](https://github.com/xsahil03x/super_paging/actions)
+[![Version](https://img.shields.io/pub/v/super_paging.svg)](https://pub.dartlang.org/packages/super_paging)
 
 Simplify Flutter pagination with Super Pager — A super package providing efficient data management, in-memory caching, configurable widgets and built-in error handling for a seamless pagination experience.
 
-Live Demo: https://xsahil03x.github.io/super_pager
+Live Demo: https://xsahil03x.github.io/super_paging
 
 **Show some ❤️ and star the repo to support the project**
 
 <kbd>
-  <img src="https://github.com/xsahil03x/super_pager/blob/main/asset/package_demo.gif?raw=true" alt="An animated image of the SuperPager" height="400"/>
+  <img src="https://github.com/xsahil03x/super_paging/blob/main/asset/package_demo.gif?raw=true" alt="An animated image of the SuperPager" height="400"/>
 </kbd>
 
 ## Features
@@ -33,7 +33,7 @@ Add the following to your  `pubspec.yaml`  and replace  `[version]`  with the la
 
 ```yaml
 dependencies:
-  super_pager: ^[version]
+  super_paging: ^[version]
 ```
 
 ## Usage
@@ -41,7 +41,7 @@ dependencies:
 To get started, import the package:
 
 ```dart
-import 'package:super_pager/super_pager.dart';
+import 'package:super_paging/super_paging.dart';
 ```
 
 Create a `PagingSource`:
@@ -155,6 +155,8 @@ SuperPager(
     // they are specifically requested by the user.
     prefetchIndex: 3,
     
+    // @Experimental
+    //
     // Defines the maximum number of items to keep in memory before
     // pages should be dropped.
     //

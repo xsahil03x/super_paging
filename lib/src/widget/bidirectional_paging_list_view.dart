@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
-import 'package:super_pager/src/load_state.dart';
-import 'package:super_pager/src/load_type.dart';
-import 'package:super_pager/src/paging_source.dart';
-import 'package:super_pager/src/paging_state.dart';
-import 'package:super_pager/src/super_pager.dart';
+import 'package:super_paging/src/load_state.dart';
+import 'package:super_paging/src/load_type.dart';
+import 'package:super_paging/src/paging_source.dart';
+import 'package:super_paging/src/paging_state.dart';
+import 'package:super_paging/src/pager.dart';
 
 import 'common.dart';
 
@@ -15,7 +15,7 @@ import 'common.dart';
 /// It supports lazy loading in both directions (prepend and append)
 /// simultaneously.
 ///
-/// This widget works seamlessly with the [SuperPager] for efficient pagination
+/// This widget works seamlessly with the [Pager] for efficient pagination
 /// and state management.
 ///
 /// see also:
@@ -82,7 +82,7 @@ class BidirectionalPagingListView<Key, Value> extends StatefulWidget {
   });
 
   /// The [PagedValueNotifier] used to control the list of items.
-  final SuperPager<Key, Value> pager;
+  final Pager<Key, Value> pager;
 
   /// A builder that is called to build items in the ListView.
   final IndexedWidgetBuilder itemBuilder;
@@ -177,7 +177,7 @@ class BidirectionalPagingListView<Key, Value> extends StatefulWidget {
 
 class _BidirectionalPagingListViewState<Key, Value>
     extends State<BidirectionalPagingListView<Key, Value>> {
-  SuperPager<Key, Value> get pager => widget.pager;
+  Pager<Key, Value> get pager => widget.pager;
 
   void _loadInitialIfRequired() {
     final refreshState = pager.value.refreshLoadState;

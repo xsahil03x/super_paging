@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:super_pager/super_pager.dart';
+import 'package:super_paging/super_paging.dart';
 
 void main() {
   group('PagingState', () {
