@@ -1,4 +1,4 @@
-name: super_pager
+name: super_paging
 
 on:
   push:
@@ -63,7 +63,7 @@ jobs:
       - name: 📁 Build and release
         uses: bluefireteam/flutter-gh-pages@v8
         with:
-          baseHref: /super_pager/
+          baseHref: /super_paging/
           workingDir: example
 
   pana:
