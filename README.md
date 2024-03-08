@@ -5,7 +5,8 @@
 [![Dart CI](https://github.com/xsahil03x/super_paging/workflows/super_paging/badge.svg)](https://github.com/xsahil03x/super_paging/actions)
 [![Version](https://img.shields.io/pub/v/super_paging.svg)](https://pub.dartlang.org/packages/super_paging)
 
-Simplify Flutter pagination with Super Pager — A super package providing efficient data management, in-memory caching, configurable widgets and built-in error handling for a seamless pagination experience.
+Simplify Flutter pagination with Super Paging — A super package providing efficient data management, in-memory caching,
+configurable widgets and built-in error handling for a seamless pagination experience.
 
 Live Demo: https://xsahil03x.github.io/super_paging
 
@@ -17,15 +18,16 @@ Live Demo: https://xsahil03x.github.io/super_paging
 
 ## Features
 
-- **Efficient Pagination:** Seamlessly integrate SuperPaging with Flutter for efficient paginated data management, ensuring a smooth user experience with large datasets.
-
-- **In-memory Caching:** Benefit from in-memory caching for paged data, optimizing system resources and enhancing overall application performance.
-
-- **Error Handling and Recovery:** SuperPaging includes built-in support for error handling, empowering your app to recover gracefully from errors with features like refresh and retry capabilities.
-
-- **State Management:** Leverage powerful state management with widgets like `PagingListView` and `BidirectionalPagingListView`, enabling the display of paginated data with support for loading, error, empty, and the actual list of items.
-
-- **Flexible Configuration:** Tailor your pagination experience to your specific needs using the versatile Pager class. Configure initial keys, page sizes, and more to achieve the desired behavior.
+- **In-memory Caching**: Intelligently caches frequently accessed data, minimizing network requests and significantly
+  improving performance.
+- **Configurable Widgets**: Customize the look and feel of your pagination with a variety of built-in widgets,
+  like `PagingListView` and `BidirectionalPagingListView`.
+- **Error Handling**: Gracefully handles potential errors during data loading and retrieval, ensuring a smooth user
+  experience even in unexpected situations.
+- **Flexible Configuration**: Tailor Pager's behavior to your specific needs by adjusting parameters like initial
+  keys, page sizes, and caching strategies.
+- **Extensive Documentation**: Clear and comprehensive documentation, making it easy for developers of all levels to
+  understand and implement effectively.
 
 ## Installation
 
