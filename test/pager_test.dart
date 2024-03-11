@@ -19,7 +19,7 @@ void main() {
     // Test initialization with a custom initial state.
     final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const FakePagingSource(),
+      pagingSourceFactory: () => const FakePagingSource(),
       initialState: initialState,
     );
 
@@ -29,7 +29,7 @@ void main() {
   test('Pager should load data with load method', () async {
     final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const FakePagingSource(),
+      pagingSourceFactory: () => const FakePagingSource(),
     );
 
     await pager.load(LoadType.refresh);
@@ -41,7 +41,7 @@ void main() {
   test('Pager should refresh data with refresh method', () async {
     final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const FakePagingSource(),
+      pagingSourceFactory: () => const FakePagingSource(),
     );
 
     await pager.load(LoadType.refresh);
@@ -58,7 +58,7 @@ void main() {
     final errorPagingSource = ErrorPagingSource(); // Simulated error source
     final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: errorPagingSource,
+      pagingSourceFactory: () => errorPagingSource,
     );
 
     await pager.load(LoadType.refresh);
@@ -71,7 +71,7 @@ void main() {
     final errorPagingSource = ErrorPagingSource(); // Simulated error source
     final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: errorPagingSource,
+      pagingSourceFactory: () => errorPagingSource,
     );
 
     await pager.load(LoadType.refresh);
@@ -86,7 +86,7 @@ void main() {
   test('Pager should add and remove listeners correctly', () async {
     final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const FakePagingSource(),
+      pagingSourceFactory: () => const FakePagingSource(),
     );
 
     int listenerCount = 0;
@@ -112,7 +112,7 @@ void main() {
   test('Pager should dispose correctly', () {
     final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const FakePagingSource(),
+      pagingSourceFactory: () => const FakePagingSource(),
     );
 
     pager.dispose();
@@ -125,7 +125,7 @@ void main() {
     final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
       // Ensure multiple pages
-      pagingSource: const FakePagingSource(),
+      pagingSourceFactory: () => const FakePagingSource(),
     );
 
     await pager.load(LoadType.refresh);
@@ -145,7 +145,7 @@ void main() {
     final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
       // Ensure multiple pages
-      pagingSource: const FakePagingSource(),
+      pagingSourceFactory: () => const FakePagingSource(),
     );
 
     await pager.load(LoadType.refresh);
@@ -164,7 +164,7 @@ void main() {
   test('Pager should correctly handle concurrency', () async {
     final pager = Pager<int, String>(
       config: const PagingConfig(pageSize: 20),
-      pagingSource: const FakePagingSource(),
+      pagingSourceFactory: () => const FakePagingSource(),
     );
 
     // Initial load.
@@ -184,7 +184,7 @@ void main() {
     setUp(() {
       pager = Pager<int, String>(
         config: const PagingConfig(pageSize: 20),
-        pagingSource: const FakePagingSource(),
+        pagingSourceFactory: () => const FakePagingSource(),
         initialState: initialState,
       );
     });

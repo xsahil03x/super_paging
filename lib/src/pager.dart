@@ -9,6 +9,8 @@ import 'paging_config.dart';
 import 'paging_source.dart';
 import 'paging_state.dart';
 
+typedef PagingSourceFactory<Key, Value> = PagingSource<Key, Value> Function();
+
 typedef PageFetcherFactory<Key, Value> = PageFetcher<Key, Value> Function(
   PagingState<Key, Value> initialState,
 );
@@ -37,15 +39,15 @@ class Pager<Key, Value> implements ValueListenable<PagingState<Key, Value>> {
   Pager({
     Key? initialKey,
     required PagingConfig config,
-    required PagingSource<Key, Value> pagingSource,
     PagingState<Key, Value> initialState = const PagingState(),
+    required PagingSourceFactory<Key, Value> pagingSourceFactory,
   })  : _notifier = ValueNotifier(initialState),
         _pageFetcherFactory = ((initialState) {
           final pageFetcher = PageFetcher(
             initialKey: initialKey,
             config: config,
-            pagingSource: pagingSource,
             initialState: initialState,
+            pagingSource: pagingSourceFactory.call(),
           );
 
           log.fine('Generated new PageFetcher');

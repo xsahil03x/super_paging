@@ -72,7 +72,7 @@ Create a `Pager` Instance:
 final pager = Pager(
   initialKey: 1,
   config: const PagingConfig(pageSize: 20, initialLoadSize: 60),
-  pagingSource: RickAndMortySource(api: RickAndMortyApi()),
+  pagingSourceFactory: () => RickAndMortySource(api: RickAndMortyApi()),
 );
 ```
 
@@ -165,14 +165,14 @@ Pager(
     // If set to null (Default), pages will never be dropped.
     maxSize: null,
   ),
-
-  // Defines the source from which to load the paginated data.
-  pagingSource: MyPagingSource(),
-
+  
   // Defines the initial state to use for the first load.
   //
   // By default, [PagingState.initial()] state is used.
   initialState: PagingState.initial(),
+
+  // Defines the source from which to load the paginated data.
+  pagingSourceFactory: () => MyPagingSource(),
 );
 ```
 

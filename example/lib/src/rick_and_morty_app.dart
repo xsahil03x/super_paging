@@ -27,7 +27,7 @@ class _RickAndMortyPageState extends State<RickAndMortyPage> {
   late final rickAndMortyPager = Pager(
     initialKey: 1, // Initial page to load.
     config: const PagingConfig(pageSize: 20, initialLoadSize: 60),
-    pagingSource: RickAndMortySource(api: RickAndMortyApi()),
+    pagingSourceFactory: () => RickAndMortySource(api: RickAndMortyApi()),
   );
 
   @override
