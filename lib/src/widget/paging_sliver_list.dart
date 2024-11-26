@@ -271,12 +271,12 @@ class _PagingSliverListState<Key, Value>
       if (prefetchIndex == null) return;
 
       // Generate prepend notification.
-      if (index == prefetchIndex) {
+      if (index <= prefetchIndex) {
         onBuildingPrependLoadTriggerItem?.call();
       }
 
       // Generate append notification.
-      if (index == itemCount - prefetchIndex) {
+      if (index >= itemCount - prefetchIndex) {
         onBuildingAppendLoadTriggerItem?.call();
       }
     }
