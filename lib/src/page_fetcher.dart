@@ -136,10 +136,16 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
         log.fine('$loadType cancelled');
       },
       () async {
-        assert(
-          loadType != LoadType.refresh,
-          'Use doInitialLoad for LoadType == refresh',
-        );
+        switch (loadType) {
+          case LoadType.append:
+            if (value.appendLoadState == const LoadState.loading()) return;
+
+          case LoadType.prepend:
+            if (value.prependLoadState == const LoadState.loading()) return;
+
+          case LoadType.refresh:
+            throw ArgumentError('Use doInitialLoad for LoadType == refresh');
+        }
 
         final loadKey = _nextLoadKeyOrNull(loadType);
         if (loadKey == null) return;

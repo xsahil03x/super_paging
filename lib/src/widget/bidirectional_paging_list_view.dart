@@ -473,10 +473,10 @@ class _BidirectionalPagingListViewState<Key, Value>
 
       // Check if the index corresponds to near the top or bottom based on the
       // 'reverse' flag.
-      final nearTop =
-          reverse ? index >= itemCount - fetchIndex : index <= fetchIndex;
-      final nearBottom =
-          reverse ? index <= fetchIndex : index >= itemCount - fetchIndex;
+      final nearUp = index <= fetchIndex;
+      final nearDown = index >= itemCount - fetchIndex;
+      final nearTop = reverse ? nearDown : nearUp;
+      final nearBottom = reverse ? nearUp : nearDown;
 
       // Generate prepend notification.
       if (nearTop) onBuildingPrependLoadTriggerItem?.call();
