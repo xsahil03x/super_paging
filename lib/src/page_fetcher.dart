@@ -136,6 +136,7 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
         log.fine('$loadType cancelled');
       },
       () async {
+        // Ignore function call if pager is already loading
         switch (loadType) {
           case LoadType.append:
             if (value.appendLoadState == const LoadState.loading()) return;
