@@ -273,7 +273,7 @@ class _PagingSliverListState<Key, Value>
 
       // Generate notifications at the beginning and end of the list if the
       // [itemCount] is less than [prefetchIndex].
-      if (itemCount < prefetchIndex) {
+      if (prefetchIndex > itemCount) {
         if (index == 0) onBuildingPrependLoadTriggerItem?.call();
         if (index == itemCount - 1) onBuildingAppendLoadTriggerItem?.call();
         return;

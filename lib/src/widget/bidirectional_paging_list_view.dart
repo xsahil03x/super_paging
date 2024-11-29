@@ -463,17 +463,17 @@ class _BidirectionalPagingListViewState<Key, Value>
   }) {
     final items = pages.items;
     final itemCount = items.length;
-    final fetchIndex = pager.config.prefetchIndex;
+    final prefetchIndex = pager.config.prefetchIndex;
 
     // Helper function to generate prepend and append load trigger notifications
     void generatePrependAppendLoadTriggerNotification(int index) {
       // If there is no prefetch index, we don't need to generate any
       // notifications.
-      if (fetchIndex == null) return;
+      if (prefetchIndex == null) return;
 
       // Generate notifications at the beginning and end of the list if the
       // [itemCount] is less than [prefetchIndex].
-      if (itemCount < fetchIndex) {
+      if (prefetchIndex > itemCount) {
         if (index == 0) onBuildingPrependLoadTriggerItem?.call();
         if (index == itemCount - 1) onBuildingAppendLoadTriggerItem?.call();
         return;
@@ -482,8 +482,8 @@ class _BidirectionalPagingListViewState<Key, Value>
       // Check if the index corresponds to near the top or bottom of the list
       // based on the [reverse] flag.
       final (nearTop, nearBottom) = switch (reverse) {
-        true => (index == itemCount - fetchIndex, index == fetchIndex),
-        false => (index == fetchIndex, index == itemCount - fetchIndex),
+        true => (index == itemCount - prefetchIndex, index == prefetchIndex),
+        false => (index == prefetchIndex, index == itemCount - prefetchIndex),
       };
 
       // Generate notifications.
