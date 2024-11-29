@@ -471,16 +471,23 @@ class _BidirectionalPagingListViewState<Key, Value>
       // notifications.
       if (fetchIndex == null) return;
 
-      // Check if the index corresponds to near the top or bottom based on the
-      // 'reverse' flag.
-      final nearTop =
-          reverse ? index == itemCount - fetchIndex : index == fetchIndex;
-      final nearBottom =
-          reverse ? index == fetchIndex : index == itemCount - fetchIndex;
+      // Generate notifications at the beginning and end of the list if the
+      // [itemCount] is less than [prefetchIndex].
+      if (itemCount < fetchIndex) {
+        if (index == 0) onBuildingPrependLoadTriggerItem?.call();
+        if (index == itemCount - 1) onBuildingAppendLoadTriggerItem?.call();
+        return;
+      }
 
-      // Generate prepend notification.
+      // Check if the index corresponds to near the top or bottom of the list
+      // based on the [reverse] flag.
+      final (nearTop, nearBottom) = switch (reverse) {
+        true => (index == itemCount - fetchIndex, index == fetchIndex),
+        false => (index == fetchIndex, index == itemCount - fetchIndex),
+      };
+
+      // Generate notifications.
       if (nearTop) onBuildingPrependLoadTriggerItem?.call();
-      // Generate append notification.
       if (nearBottom) onBuildingAppendLoadTriggerItem?.call();
     }
 

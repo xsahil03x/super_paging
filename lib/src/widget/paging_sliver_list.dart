@@ -265,20 +265,29 @@ class _PagingSliverListState<Key, Value>
     final itemCount = items.length;
     final prefetchIndex = pager.config.prefetchIndex;
 
+    // Helper function to generate prepend and append load trigger notifications
     void generatePrependAppendLoadTriggerNotification(int index) {
       // If there is no prefetch index, we don't have to generate any
       // notification.
       if (prefetchIndex == null) return;
 
-      // Generate prepend notification.
-      if (index == prefetchIndex) {
-        onBuildingPrependLoadTriggerItem?.call();
+      // Generate notifications at the beginning and end of the list if the
+      // [itemCount] is less than [prefetchIndex].
+      if (itemCount < prefetchIndex) {
+        if (index == 0) onBuildingPrependLoadTriggerItem?.call();
+        if (index == itemCount - 1) onBuildingAppendLoadTriggerItem?.call();
+        return;
       }
 
-      // Generate append notification.
-      if (index == itemCount - prefetchIndex) {
-        onBuildingAppendLoadTriggerItem?.call();
-      }
+      // Check if the index corresponds to near the top or bottom of the list.
+      final (nearTop, nearBottom) = (
+        index == prefetchIndex,
+        index == itemCount - prefetchIndex,
+      );
+
+      // Generate notifications.
+      if (nearTop) onBuildingPrependLoadTriggerItem?.call();
+      if (nearBottom) onBuildingAppendLoadTriggerItem?.call();
     }
 
     final itemBuilder = widget.itemBuilder;
