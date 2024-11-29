@@ -80,9 +80,10 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
     return LoadParams(
       loadType: loadType,
       key: key,
-      loadSize: loadType == LoadType.refresh
-          ? config.initialLoadSize
-          : config.pageSize,
+      loadSize: switch (loadType) {
+        LoadType.refresh => config.initialLoadSize,
+        _ => config.pageSize,
+      },
     );
   }
 
@@ -99,7 +100,8 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
         final params = _loadParams(LoadType.refresh, initialKey);
 
         log.fine(
-            'Start REFRESH with loadKey $initialKey on $pagingSource in ${describeIdentity(this)}');
+          'Start REFRESH with loadKey $initialKey on $pagingSource in ${describeIdentity(this)}',
+        );
 
         final result = await _withCancellationScope(
           token: _cancellationToken,
@@ -112,14 +114,16 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
         result.map(
           page: (page) {
             log.fine(
-                'End REFRESH with loadKey $initialKey in ${describeIdentity(this)}');
+              'End REFRESH with loadKey $initialKey in ${describeIdentity(this)}',
+            );
 
             // Update value with the loaded page.
             value = value.insertPage(LoadType.refresh, page);
           },
           error: (it) {
             log.finer(
-                'End REFRESH with loadKey $initialKey. Returned $it in ${describeIdentity(this)}');
+              'End REFRESH with loadKey $initialKey. Returned $it in ${describeIdentity(this)}',
+            );
 
             // Update value with the error.
             value = value.setError(LoadType.refresh, it.error);
@@ -180,14 +184,16 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
             }
 
             log.fine(
-                'End $loadType with loadKey $loadKey. Returned $page in ${describeIdentity(this)}');
+              'End $loadType with loadKey $loadKey. Returned $page in ${describeIdentity(this)}',
+            );
 
             // Update value with the loaded page.
             value = value.insertPage(loadType, page);
           },
           error: (it) {
             log.finer(
-                'End $loadType with loadKey $loadKey. Returned $it in ${describeIdentity(this)}');
+              'End $loadType with loadKey $loadKey. Returned $it in ${describeIdentity(this)}',
+            );
 
             // Update value with the error.
             value = value.setError(loadType, it.error);
