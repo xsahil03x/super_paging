@@ -94,6 +94,9 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
         log.fine('Initial load cancelled');
       },
       () async {
+        // Skip load if already in a loading state.
+        if (value.getLoadState(LoadType.refresh) case Loading()) return;
+
         // Update load state to loading.
         value = value.setLoading(LoadType.refresh);
 
@@ -144,6 +147,9 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
           loadType != LoadType.refresh,
           'Use doInitialLoad for LoadType == refresh',
         );
+
+        // Skip load if already in a loading state.
+        if (value.getLoadState(loadType) case Loading()) return;
 
         final loadKey = _nextLoadKeyOrNull(loadType);
         if (loadKey == null) return;

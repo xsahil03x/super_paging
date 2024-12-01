@@ -348,34 +348,20 @@ class _BidirectionalPagingListViewState<Key, Value>
                 topPages,
                 reverse: true,
                 onBuildingPrependLoadTriggerItem: () {
-                  final canMakeRequest = prependLoadState.maybeMap(
-                    notLoading: (it) => !it.endOfPaginationReached,
-                    orElse: () => false,
-                  );
-
-                  if (canMakeRequest) {
-                    // Schedules the request for the end of this frame.
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      pager.load(LoadType.prepend);
-                    });
-                  }
+                  // Schedules the request for the end of this frame.
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    pager.load(LoadType.prepend);
+                  });
                 },
                 onBuildingAppendLoadTriggerItem: () {
                   // If the bottom list contain items, we don't need to handle
                   // append here.
                   if (!bottomPages.isListEmpty) return;
 
-                  final canMakeRequest = appendLoadState.maybeMap(
-                    notLoading: (it) => !it.endOfPaginationReached,
-                    orElse: () => false,
-                  );
-
-                  if (canMakeRequest) {
-                    // Schedules the request for the end of this frame.
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      pager.load(LoadType.append);
-                    });
-                  }
+                  // Schedules the request for the end of this frame.
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    pager.load(LoadType.append);
+                  });
                 },
               ),
             ),
@@ -392,30 +378,16 @@ class _BidirectionalPagingListViewState<Key, Value>
                   // prepend here.
                   if (!topPages.isListEmpty) return;
 
-                  final canMakeRequest = prependLoadState.maybeMap(
-                    notLoading: (it) => !it.endOfPaginationReached,
-                    orElse: () => false,
-                  );
-
-                  if (canMakeRequest) {
-                    // Schedules the request for the end of this frame.
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      pager.load(LoadType.prepend);
-                    });
-                  }
+                  // Schedules the request for the end of this frame.
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    pager.load(LoadType.prepend);
+                  });
                 },
                 onBuildingAppendLoadTriggerItem: () {
-                  final canMakeRequest = appendLoadState.maybeMap(
-                    notLoading: (it) => !it.endOfPaginationReached,
-                    orElse: () => false,
-                  );
-
-                  if (canMakeRequest) {
-                    // Schedules the request for the end of this frame.
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      pager.load(LoadType.append);
-                    });
-                  }
+                  // Schedules the request for the end of this frame.
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    pager.load(LoadType.append);
+                  });
                 },
               ),
             ),
@@ -471,24 +443,16 @@ class _BidirectionalPagingListViewState<Key, Value>
       // notifications.
       if (prefetchIndex == null) return;
 
-      // Generate notifications at the beginning and end of the list if the
-      // [itemCount] is less than [prefetchIndex].
-      if (prefetchIndex > itemCount) {
-        if (index == 0) onBuildingPrependLoadTriggerItem?.call();
-        if (index == itemCount - 1) onBuildingAppendLoadTriggerItem?.call();
-        return;
-      }
-
-      // Check if the index corresponds to near the top or bottom of the list
-      // based on the [reverse] flag.
-      final (nearTop, nearBottom) = switch (reverse) {
-        true => (index == itemCount - prefetchIndex, index == prefetchIndex),
-        false => (index == prefetchIndex, index == itemCount - prefetchIndex),
+      // Check if the index is near the edge of the list based on the prefetch
+      // index and the direction of the list.
+      final (shouldPrependItems, shouldAppendItems) = switch (reverse) {
+        true => (index >= itemCount - prefetchIndex, index <= prefetchIndex),
+        false => (index <= prefetchIndex, index >= itemCount - prefetchIndex),
       };
 
       // Generate notifications.
-      if (nearTop) onBuildingPrependLoadTriggerItem?.call();
-      if (nearBottom) onBuildingAppendLoadTriggerItem?.call();
+      if (shouldPrependItems) onBuildingPrependLoadTriggerItem?.call();
+      if (shouldAppendItems) onBuildingAppendLoadTriggerItem?.call();
     }
 
     final separatorBuilder = widget.separatorBuilder;
