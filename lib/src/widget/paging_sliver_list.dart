@@ -210,31 +210,11 @@ class _PagingSliverListState<Key, Value>
           SliverList(
             delegate: _createDelegate(
               pages,
-              onBuildingPrependLoadTriggerItem: () {
-                final canMakeRequest = prependLoadState.maybeMap(
-                  notLoading: (it) => !it.endOfPaginationReached,
-                  orElse: () => false,
-                );
-
-                if (canMakeRequest) {
-                  // Schedules the request for the end of this frame.
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    pager.load(LoadType.prepend);
-                  });
-                }
-              },
               onBuildingAppendLoadTriggerItem: () {
-                final canMakeRequest = appendLoadState.maybeMap(
-                  notLoading: (it) => !it.endOfPaginationReached,
-                  orElse: () => false,
-                );
-
-                if (canMakeRequest) {
-                  // Schedules the request for the end of this frame.
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    pager.load(LoadType.append);
-                  });
-                }
+                // Schedules the request for the end of this frame.
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  pager.load(LoadType.append);
+                });
               },
             ),
           ),
@@ -258,7 +238,6 @@ class _PagingSliverListState<Key, Value>
 
   SliverChildDelegate _createDelegate(
     List<LoadResultPage<Key, Value>> pages, {
-    VoidCallback? onBuildingPrependLoadTriggerItem,
     VoidCallback? onBuildingAppendLoadTriggerItem,
   }) {
     final items = pages.items;
@@ -266,28 +245,17 @@ class _PagingSliverListState<Key, Value>
     final prefetchIndex = pager.config.prefetchIndex;
 
     // Helper function to generate prepend and append load trigger notifications
-    void generatePrependAppendLoadTriggerNotification(int index) {
+    void generateAppendLoadTriggerNotification(int index) {
       // If there is no prefetch index, we don't have to generate any
       // notification.
       if (prefetchIndex == null) return;
 
-      // Generate notifications at the beginning and end of the list if the
-      // [itemCount] is less than [prefetchIndex].
-      if (prefetchIndex > itemCount) {
-        if (index == 0) onBuildingPrependLoadTriggerItem?.call();
-        if (index == itemCount - 1) onBuildingAppendLoadTriggerItem?.call();
-        return;
-      }
+      // Check if the index is close to the end of the list based on the
+      // prefetch index.
+      final shouldAppendItems = index >= itemCount - prefetchIndex;
 
-      // Check if the index corresponds to near the top or bottom of the list.
-      final (nearTop, nearBottom) = (
-        index == prefetchIndex,
-        index == itemCount - prefetchIndex,
-      );
-
-      // Generate notifications.
-      if (nearTop) onBuildingPrependLoadTriggerItem?.call();
-      if (nearBottom) onBuildingAppendLoadTriggerItem?.call();
+      // Generate notification.
+      if (shouldAppendItems) onBuildingAppendLoadTriggerItem?.call();
     }
 
     final itemBuilder = widget.itemBuilder;
@@ -297,8 +265,8 @@ class _PagingSliverListState<Key, Value>
         (BuildContext context, int index) {
           final int itemIndex = index ~/ 2;
           if (index.isEven) {
-            // Generate prepend and append notification.
-            generatePrependAppendLoadTriggerNotification(itemIndex);
+            // Generate append notification.
+            generateAppendLoadTriggerNotification(itemIndex);
 
             // Build items.
             return itemBuilder(context, itemIndex);
@@ -319,8 +287,8 @@ class _PagingSliverListState<Key, Value>
 
     return SliverChildBuilderDelegate(
       (BuildContext context, int index) {
-        // Generate prepend and append notification.
-        generatePrependAppendLoadTriggerNotification(index);
+        // Generate append notification.
+        generateAppendLoadTriggerNotification(index);
 
         // Build items.
         return itemBuilder(context, index);
