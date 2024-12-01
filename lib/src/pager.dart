@@ -12,6 +12,7 @@ import 'paging_state.dart';
 typedef PagingSourceFactory<Key, Value> = PagingSource<Key, Value> Function();
 
 typedef PageFetcherFactory<Key, Value> = PageFetcher<Key, Value> Function(
+  Key? initialKey,
   PagingState<Key, Value> initialState,
 );
 
@@ -42,7 +43,7 @@ class Pager<Key, Value> implements ValueListenable<PagingState<Key, Value>> {
     PagingState<Key, Value> initialState = const PagingState(),
     required PagingSourceFactory<Key, Value> pagingSourceFactory,
   })  : _notifier = ValueNotifier(initialState),
-        _pageFetcherFactory = ((initialState) {
+        _pageFetcherFactory = ((initialKey, initialState) {
           final pageFetcher = PageFetcher(
             initialKey: initialKey,
             config: config,
@@ -55,18 +56,19 @@ class Pager<Key, Value> implements ValueListenable<PagingState<Key, Value>> {
           return pageFetcher;
         }) {
     // Create a new page fetcher and listen to its state changes.
-    _pageFetcher = _pageFetcherFactory.call(initialState);
+    _pageFetcher = _pageFetcherFactory.call(initialKey, initialState);
     _pageFetcher.addListener(_onPageFetcherStateChange);
   }
 
   @visibleForTesting
   Pager.custom({
-    required PageFetcherFactory<Key, Value> pageFetcherFactory,
+    Key? initialKey,
     PagingState<Key, Value> initialState = const PagingState(),
+    required PageFetcherFactory<Key, Value> pageFetcherFactory,
   })  : _notifier = ValueNotifier(initialState),
         _pageFetcherFactory = pageFetcherFactory {
     // Create a new page fetcher and listen to its state changes.
-    _pageFetcher = _pageFetcherFactory.call(initialState);
+    _pageFetcher = _pageFetcherFactory.call(initialKey, initialState);
     _pageFetcher.addListener(_onPageFetcherStateChange);
   }
 
@@ -118,24 +120,36 @@ class Pager<Key, Value> implements ValueListenable<PagingState<Key, Value>> {
   ///
   /// Note: This API is intended for UI-driven refresh signals, such as
   /// swipe-to-refresh.
-  Future<void> refresh({bool resetPages = true}) {
-    final current = _pageFetcher;
+  Future<void> refresh({
+    /// Optional key to use as the initial key for the new page fetcher.
+    ///
+    /// This is useful when you want to refresh the data with a different key.
+    /// For eg, when you want to directly go to the nth page instead of
+    /// swiping through all the pages.
+    ///
+    /// If not provided, the initial key of the previous page fetcher will be
+    /// used.
+    Key? refreshKey,
+    bool resetPages = true,
+  }) {
+    final previousPageFetcher = _pageFetcher;
 
-    // Dispose the current page fetcher.
-    current.removeListener(_onPageFetcherStateChange);
-    current.dispose();
+    // Dispose the current page fetcher and remove its listener.
+    previousPageFetcher.removeListener(_onPageFetcherStateChange);
+    previousPageFetcher.dispose();
 
     // Determine the initial state for the new page fetcher.
     //
     // If resetPages is true, we reset the state, otherwise we use the
-    // pages from the current page fetcher.
-    var initialState = PagingState.fromPages(value.pages);
+    // pages from the previous page fetcher.
+    var initialState = PagingState.fromPages(previousPageFetcher.value.pages);
     if (resetPages) {
       initialState = const PagingState();
     }
 
     // Create a new page fetcher.
-    _pageFetcher = _pageFetcherFactory.call(initialState);
+    final initialKey = refreshKey ?? previousPageFetcher.initialKey;
+    _pageFetcher = _pageFetcherFactory.call(initialKey, initialState);
     _pageFetcher.addListener(_onPageFetcherStateChange);
 
     // Load the new page fetcher.
