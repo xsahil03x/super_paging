@@ -1,4 +1,4 @@
-## Upcoming
+## 0.2.0
 
 - [[#11]](https://github.com/xsahil03x/super_paging/issues/11) Fix generating prepend load trigger notification when `prefetchIndex` is bigger than the items visible on the screen.
 - [[#7](https://github.com/xsahil03x/super_paging/issues/7)] Fix generating load trigger notification when `itemCount` is less than `prefetchIndex`.
