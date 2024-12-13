@@ -55,7 +55,7 @@ class RickAndMortySource extends PagingSource<int, Character> {
   RickAndMortySource({required this.api});
 
   @override
-  Future<LoadResult<int, Character>> load(PagingConfig<int> config, int key) async {
+  Future<LoadResult<int, Character>> load(LoadParams<int> params) async {
     try {
       final characters = await api.getCharacters(page: key);
       return LoadResult.page(nextKey: key + 1, items: characters);
