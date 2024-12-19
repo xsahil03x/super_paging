@@ -47,12 +47,10 @@ sealed class PagingState<Key, Value> with _$PagingState<Key, Value> {
 
 /// Extension methods for [PagingList].
 extension PagingListExtension<Key, Value> on List<LoadResultPage<Key, Value>> {
-  /// Returns the [Key] for the previous page to be fetched if available,
-  /// `null` otherwise.
+  /// Returns the [Key] for the previous page to be fetched if available, `null` otherwise.
   Key? get prevKey => firstOrNull?.prevKey;
 
-  /// Returns the [Key] for the next page to be fetched if available,
-  /// `null` otherwise.
+  /// Returns the [Key] for the next page to be fetched if available, `null` otherwise.
   Key? get nextKey => lastOrNull?.nextKey;
 
   /// Returns all the loaded items accumulated from [pages].
@@ -61,19 +59,15 @@ extension PagingListExtension<Key, Value> on List<LoadResultPage<Key, Value>> {
   /// Returns the total number of items in [pages].
   int get itemCount => fold(0, (acc, it) => acc + it.items.length);
 
-  /// Returns `True` if all loaded pages are empty or no pages were loaded when
-  /// this [Success] was created, `False` otherwise.
+  /// Returns `True` if all loaded pages are empty or no pages were loaded when this [Success] was created, `False` otherwise.
   bool get isListEmpty => isEmpty || every((it) => it.items.isEmpty);
 
-  /// Returns `True` if there is at least one loaded page with items when this
-  /// [Success] was created, `False` otherwise.
+  /// Returns `True` if there is at least one loaded page with items when this [Success] was created, `False` otherwise.
   bool get isListNotEmpty => isNotEmpty && any((it) => it.items.isNotEmpty);
 
-  /// Returns the first loaded item in the list or `null` if all loaded pages
-  /// are empty or no pages were loaded when this [Success] was created.
+  /// Returns the first loaded item in the list or `null` if all loaded pages are empty or no pages were loaded when this [Success] was created.
   Value? get firstItemOrNull => firstOrNull?.items.firstOrNull;
 
-  /// Returns the last loaded item in the list or `null` if all loaded pages are
-  /// empty or no pages were loaded when this [Success] was created.
+  /// Returns the last loaded item in the list or `null` if all loaded pages are empty or no pages were loaded when this [Success] was created.
   Value? get lastItemOrNull => lastOrNull?.items.lastOrNull;
 }

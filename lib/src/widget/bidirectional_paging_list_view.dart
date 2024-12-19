@@ -182,8 +182,7 @@ class BidirectionalPagingListView<Key, Value> extends StatefulWidget {
       _BidirectionalPagingListViewState<Key, Value>();
 }
 
-class _BidirectionalPagingListViewState<Key, Value>
-    extends State<BidirectionalPagingListView<Key, Value>> {
+class _BidirectionalPagingListViewState<Key, Value> extends State<BidirectionalPagingListView<Key, Value>> {
   Pager<Key, Value> get pager => widget.pager;
 
   void _loadInitialIfRequired() {
@@ -204,8 +203,7 @@ class _BidirectionalPagingListViewState<Key, Value>
   }
 
   @override
-  void didUpdateWidget(
-      covariant BidirectionalPagingListView<Key, Value> oldWidget) {
+  void didUpdateWidget(covariant BidirectionalPagingListView<Key, Value> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.pager != widget.pager) {
       _loadInitialIfRequired();
@@ -229,8 +227,7 @@ class _BidirectionalPagingListViewState<Key, Value>
             return Center(child: errorWidget);
           },
           loading: () {
-            // We are only going to show the loading widget if there are no
-            // pages.
+            // We are only going to show the loading widget if there are no pages.
             if (pages.isListEmpty) {
               final loadingWidget = widget.loadingBuilder.call(context);
               return Center(child: loadingWidget);
@@ -354,8 +351,7 @@ class _BidirectionalPagingListViewState<Key, Value>
                   });
                 },
                 onBuildingAppendLoadTriggerItem: () {
-                  // If the bottom list contain items, we don't need to handle
-                  // append here.
+                  // If the bottom list contain items, we don't need to handle append here.
                   if (!bottomPages.isListEmpty) return;
 
                   // Schedules the request for the end of this frame.
@@ -374,8 +370,7 @@ class _BidirectionalPagingListViewState<Key, Value>
               delegate: _createDelegate(
                 bottomPages,
                 onBuildingPrependLoadTriggerItem: () {
-                  // If the top list contain items, we don't need to handle
-                  // prepend here.
+                  // If the top list contain items, we don't need to handle prepend here.
                   if (!topPages.isListEmpty) return;
 
                   // Schedules the request for the end of this frame.
@@ -439,12 +434,10 @@ class _BidirectionalPagingListViewState<Key, Value>
 
     // Helper function to generate prepend and append load trigger notifications
     void generatePrependAppendLoadTriggerNotification(int index) {
-      // If there is no prefetch index, we don't need to generate any
-      // notifications.
+      // If there is no prefetch index, we don't need to generate any notifications.
       if (prefetchIndex == null) return;
 
-      // Check if the index is near the edge of the list based on the prefetch
-      // index and the direction of the list.
+      // Check if the index is near the edge of the list based on the prefetch index and the direction of the list.
       final (shouldPrependItems, shouldAppendItems) = switch (reverse) {
         true => (index >= itemCount - prefetchIndex, index <= prefetchIndex),
         false => (index <= prefetchIndex, index >= itemCount - prefetchIndex),

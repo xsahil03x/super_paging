@@ -16,13 +16,18 @@ dependencies:
   json_annotation: ^4.8.1
   super_paging:
     path: ../
+  objectbox: ^4.0.3
+  objectbox_flutter_libs: any
+  intl: ^0.20.1
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.1
   json_serializable: ^6.7.1
-  build_runner: ^2.4.8
+  build_runner: ^2.4.14
+  objectbox_generator: any
 
 flutter:
   uses-material-design: true
