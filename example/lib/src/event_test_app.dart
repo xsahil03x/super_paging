@@ -1,3 +1,4 @@
+import 'package:example/src/event.dart';
 import 'package:example/src/event_card.dart';
 import 'package:example/src/event_source.dart';
 import 'package:example/src/object_box.dart';
@@ -35,7 +36,7 @@ class EventTestPage extends StatefulWidget {
 }
 
 class _EventTestPageState extends State<EventTestPage> {
-  late final Pager pager;
+  late final Pager<int, Event> pager;
   final DateTime currentTime = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   @override
