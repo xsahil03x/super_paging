@@ -1,9 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:super_paging/src/load_state.dart';
+import 'package:super_paging/src/paging_source.dart';
 import 'package:super_paging/src/two_part_list.dart';
-
-import 'load_state.dart';
-import 'paging_source.dart';
 
 part 'paging_state.freezed.dart';
 

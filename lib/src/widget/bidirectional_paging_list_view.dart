@@ -5,8 +5,8 @@ import 'package:super_paging/src/load_type.dart';
 import 'package:super_paging/src/paging_source.dart';
 import 'package:super_paging/src/paging_state.dart';
 import 'package:super_paging/src/pager.dart';
-
-import 'common.dart';
+import 'package:super_paging/src/widget/common.dart';
+import 'package:super_paging/src/widget/paging_widget_builder.dart';
 
 /// A Flutter widget that represents a bidirectional paginated list view,
 /// capable of displaying various states such as loading, error, empty, and
@@ -21,7 +21,7 @@ import 'common.dart';
 /// see also:
 ///
 ///  * [PagingListView], which is the unidirectional version of this widget.
-class BidirectionalPagingListView<Key, Value> extends StatefulWidget {
+class BidirectionalPagingListView<Key, Value> extends StatelessWidget {
   BidirectionalPagingListView({
     super.key,
     required this.pager,
@@ -178,127 +178,60 @@ class BidirectionalPagingListView<Key, Value> extends StatefulWidget {
   final bool addSemanticIndexes;
 
   @override
-  State<BidirectionalPagingListView<Key, Value>> createState() =>
-      _BidirectionalPagingListViewState<Key, Value>();
-}
-
-class _BidirectionalPagingListViewState<Key, Value>
-    extends State<BidirectionalPagingListView<Key, Value>> {
-  Pager<Key, Value> get pager => widget.pager;
-
-  void _loadInitialIfRequired() {
-    final refreshState = pager.value.refreshLoadState;
-    if (refreshState is NotLoading) {
-      // If the load is already completed, we don't have to call it again.
-      if (refreshState.endOfPaginationReached) return;
-
-      // Otherwise, do initial load.
-      pager.load(LoadType.refresh);
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _loadInitialIfRequired();
-  }
-
-  @override
-  void didUpdateWidget(
-      covariant BidirectionalPagingListView<Key, Value> oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.pager != widget.pager) {
-      _loadInitialIfRequired();
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: pager,
-      builder: (context, state, child) {
-        // All the loaded pages.
-        final pages = state.pages;
-
-        // Handle the refresh state.
-        // The refresh state is the state of the first page.
-        final refreshState = state.refreshLoadState;
-        return refreshState.when(
-          error: (error) {
-            final errorWidget = widget.errorBuilder.call(context, error);
-            return Center(child: errorWidget);
-          },
-          loading: () {
-            // We are only going to show the loading widget if there are no
-            // pages.
-            if (pages.isListEmpty) {
-              final loadingWidget = widget.loadingBuilder.call(context);
-              return Center(child: loadingWidget);
-            }
-
-            // Otherwise, we are going to build our list of pages.
-            return _buildPageList(
-              context,
-              pages: pages,
-              prependLoadState: state.prependLoadState,
-              appendLoadState: state.appendLoadState,
-            );
-          },
-          notLoading: (_) {
-            // If there are no pages, we are going to show the empty widget.
-            if (pages.isListEmpty) {
-              final emptyWidget = widget.emptyBuilder.call(context);
-              return Center(child: emptyWidget);
-            }
-
-            // Otherwise, we are going to build our list of pages.
-            return _buildPageList(
-              context,
-              pages: pages,
-              prependLoadState: state.prependLoadState,
-              appendLoadState: state.appendLoadState,
-            );
-          },
-        );
+    return PagingWidgetBuilder(
+      pager: pager,
+      pageListBuilder: _buildPageList,
+      emptyBuilder: (context) {
+        final emptyWidget = emptyBuilder.call(context);
+        return Center(child: emptyWidget);
+      },
+      errorBuilder: (context, error) {
+        final errorWidget = errorBuilder.call(context, error);
+        return Center(child: errorWidget);
+      },
+      loadingBuilder: (context) {
+        final loadingWidget = loadingBuilder.call(context);
+        return Center(child: loadingWidget);
       },
     );
   }
 
-  EdgeInsets get _effectivePadding => widget.padding ?? EdgeInsets.zero;
+  EdgeInsets get _effectivePadding => padding ?? EdgeInsets.zero;
 
-  EdgeInsets get _leadingSliverPadding => switch (widget.scrollDirection) {
+  EdgeInsets get _leadingSliverPadding => switch (scrollDirection) {
         Axis.vertical => _effectivePadding.copyWith(
-            bottom: widget.reverse ? _effectivePadding.bottom : 0,
-            top: widget.reverse ? 0 : _effectivePadding.top,
+            bottom: reverse ? _effectivePadding.bottom : 0,
+            top: reverse ? 0 : _effectivePadding.top,
           ),
         Axis.horizontal => _effectivePadding.copyWith(
-            right: widget.reverse ? _effectivePadding.right : 0,
-            left: widget.reverse ? 0 : _effectivePadding.left,
+            right: reverse ? _effectivePadding.right : 0,
+            left: reverse ? 0 : _effectivePadding.left,
           ),
       };
 
-  EdgeInsets get _centerSliverPadding => switch (widget.scrollDirection) {
+  EdgeInsets get _centerSliverPadding => switch (scrollDirection) {
         Axis.vertical => _effectivePadding.copyWith(top: 0, bottom: 0),
         Axis.horizontal => _effectivePadding.copyWith(right: 0, left: 0),
       };
 
-  EdgeInsets get _trailingSliverPadding => switch (widget.scrollDirection) {
+  EdgeInsets get _trailingSliverPadding => switch (scrollDirection) {
         Axis.vertical => _effectivePadding.copyWith(
-            top: widget.reverse ? _effectivePadding.top : 0,
-            bottom: widget.reverse ? 0 : _effectivePadding.bottom,
+            top: reverse ? _effectivePadding.top : 0,
+            bottom: reverse ? 0 : _effectivePadding.bottom,
           ),
         Axis.horizontal => _effectivePadding.copyWith(
-            left: widget.reverse ? _effectivePadding.left : 0,
-            right: widget.reverse ? 0 : _effectivePadding.right,
+            left: reverse ? _effectivePadding.left : 0,
+            right: reverse ? 0 : _effectivePadding.right,
           ),
       };
 
   Widget _buildPageList(
-    BuildContext context, {
-    required PagingList<LoadResultPage<Key, Value>> pages,
-    required LoadState prependLoadState,
-    required LoadState appendLoadState,
-  }) {
+    BuildContext context,
+    PagingList<LoadResultPage<Key, Value>> pages,
+    LoadState prependLoadState,
+    LoadState appendLoadState,
+  ) {
     const centerKey = ValueKey('bottom-paging-sliver-list');
 
     final topPages = pages.top;
@@ -306,30 +239,29 @@ class _BidirectionalPagingListViewState<Key, Value>
 
     return CustomScrollView(
       center: centerKey,
-      scrollDirection: widget.scrollDirection,
-      reverse: widget.reverse,
-      controller: widget.controller,
-      primary: widget.primary,
-      physics: widget.physics,
-      scrollBehavior: widget.scrollBehavior,
-      // TODO: Add support for shrinkWrap
-      shrinkWrap: false,
-      cacheExtent: widget.cacheExtent,
+      scrollDirection: scrollDirection,
+      reverse: reverse,
+      controller: controller,
+      primary: primary,
+      physics: physics,
+      scrollBehavior: scrollBehavior,
+      cacheExtent: cacheExtent,
       semanticChildCount: pages.items.length,
-      dragStartBehavior: widget.dragStartBehavior,
-      keyboardDismissBehavior: widget.keyboardDismissBehavior,
-      restorationId: widget.restorationId,
-      clipBehavior: widget.clipBehavior,
+      dragStartBehavior: dragStartBehavior,
+      keyboardDismissBehavior: keyboardDismissBehavior,
+      restorationId: restorationId,
+      clipBehavior: clipBehavior,
       slivers: <Widget>[
         ...{
           // Handle prepend load state.
           SliverPadding(
             padding: _leadingSliverPadding,
             sliver: SliverToBoxAdapter(
-              child: widget.prependStateBuilder.call(
+              child: prependStateBuilder.call(
                 context,
                 prependLoadState,
-                pager,
+                pager.load,
+                pager.retry,
               ),
             ),
           ),
@@ -337,7 +269,7 @@ class _BidirectionalPagingListViewState<Key, Value>
           SliverPadding(
             padding: _centerSliverPadding,
             sliver: SliverToBoxAdapter(
-              child: widget.headerBuilder?.call(context),
+              child: headerBuilder?.call(context),
             ),
           ),
 
@@ -396,7 +328,7 @@ class _BidirectionalPagingListViewState<Key, Value>
           SliverPadding(
             padding: _centerSliverPadding,
             sliver: SliverToBoxAdapter(
-              child: widget.footerBuilder?.call(context),
+              child: footerBuilder?.call(context),
             ),
           ),
 
@@ -404,10 +336,11 @@ class _BidirectionalPagingListViewState<Key, Value>
           SliverPadding(
             padding: _trailingSliverPadding,
             sliver: SliverToBoxAdapter(
-              child: widget.appendStateBuilder.call(
+              child: appendStateBuilder.call(
                 context,
                 appendLoadState,
-                pager,
+                pager.load,
+                pager.retry,
               ),
             ),
           ),
@@ -417,14 +350,14 @@ class _BidirectionalPagingListViewState<Key, Value>
   }
 
   Widget _buildItem(BuildContext context, int index) {
-    if (widget.addSemanticIndexes) {
+    if (addSemanticIndexes) {
       return IndexedSemantics(
         index: index,
-        child: widget.itemBuilder(context, index),
+        child: itemBuilder(context, index),
       );
     }
 
-    return widget.itemBuilder(context, index);
+    return itemBuilder(context, index);
   }
 
   SliverChildBuilderDelegate _createDelegate(
@@ -455,7 +388,7 @@ class _BidirectionalPagingListViewState<Key, Value>
       if (shouldAppendItems) onBuildingAppendLoadTriggerItem?.call();
     }
 
-    final separatorBuilder = widget.separatorBuilder;
+    final separatorBuilder = this.separatorBuilder;
     if (separatorBuilder != null) {
       return SliverChildBuilderDelegate(
         (context, index) {
@@ -475,9 +408,9 @@ class _BidirectionalPagingListViewState<Key, Value>
           return separatorBuilder(context, actualIndex);
         },
         childCount: reverse ? itemCount * 2 : itemCount * 2 - 1,
-        findChildIndexCallback: widget.findChildIndexCallback,
-        addAutomaticKeepAlives: widget.addAutomaticKeepAlives,
-        addRepaintBoundaries: widget.addRepaintBoundaries,
+        findChildIndexCallback: findChildIndexCallback,
+        addAutomaticKeepAlives: addAutomaticKeepAlives,
+        addRepaintBoundaries: addRepaintBoundaries,
         addSemanticIndexes: false,
       );
     }
@@ -493,9 +426,9 @@ class _BidirectionalPagingListViewState<Key, Value>
         return _buildItem(context, actualIndex);
       },
       childCount: itemCount,
-      findChildIndexCallback: widget.findChildIndexCallback,
-      addAutomaticKeepAlives: widget.addAutomaticKeepAlives,
-      addRepaintBoundaries: widget.addRepaintBoundaries,
+      findChildIndexCallback: findChildIndexCallback,
+      addAutomaticKeepAlives: addAutomaticKeepAlives,
+      addRepaintBoundaries: addRepaintBoundaries,
       addSemanticIndexes: false,
     );
   }

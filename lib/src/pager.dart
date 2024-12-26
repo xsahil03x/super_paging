@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:super_paging/src/widget/bidirectional_paging_list_view.dart';
 
 import 'load_state.dart';
 import 'load_type.dart';
