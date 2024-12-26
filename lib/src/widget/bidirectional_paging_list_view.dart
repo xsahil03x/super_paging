@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
+
 import 'package:super_paging/src/load_state.dart';
 import 'package:super_paging/src/load_type.dart';
 import 'package:super_paging/src/paging_source.dart';

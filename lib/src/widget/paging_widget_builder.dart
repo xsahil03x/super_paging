@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:super_paging/src/load_state.dart';
 import 'package:super_paging/src/load_type.dart';
 import 'package:super_paging/src/pager.dart';

@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'package:super_paging/src/load_state.dart';
 import 'package:super_paging/src/paging_source.dart';
 import 'package:super_paging/src/two_part_list.dart';
