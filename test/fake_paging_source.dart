@@ -27,6 +27,6 @@ class ErrorPagingSource extends PagingSource<int, String> {
   @override
   Future<LoadResult<int, String>> load(LoadParams<int> params) async {
     // Simulate an error by returning an error result.
-    return const LoadResult.error("Error loading data");
+    return const LoadResult.error('Error loading data');
   }
 }

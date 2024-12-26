@@ -360,7 +360,7 @@ extension<Key, Value> on PagingState<Key, Value> {
         );
       case LoadType.prepend:
         if (pages.isEmpty) {
-          throw StateError('should\'ve received an init before prepend');
+          throw StateError("should've received an init before prepend");
         }
 
         return copyWith(
@@ -374,7 +374,7 @@ extension<Key, Value> on PagingState<Key, Value> {
         );
       case LoadType.append:
         if (pages.isEmpty) {
-          throw StateError('should\'ve received an init before append');
+          throw StateError("should've received an init before append");
         }
 
         return copyWith(

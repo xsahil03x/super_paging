@@ -5,21 +5,15 @@ void main() {
   group('LoadState', () {
     test('NotLoading initializes correctly with endOfPaginationReached = true',
         () {
-      var loadState = const LoadState.notLoading(endOfPaginationReached: true);
-
+      const loadState = LoadState.notLoadingComplete;
       expect(loadState, isA<NotLoading>());
-
-      loadState = loadState as NotLoading;
       expect(loadState.endOfPaginationReached, true);
     });
 
     test('NotLoading initializes correctly with endOfPaginationReached = false',
         () {
-      var loadState = const LoadState.notLoading(endOfPaginationReached: false);
-
+      const loadState = LoadState.notLoadingIncomplete;
       expect(loadState, isA<NotLoading>());
-
-      loadState = loadState as NotLoading;
       expect(loadState.endOfPaginationReached, false);
     });
 
@@ -64,22 +58,16 @@ void main() {
     test(
         'NotLoading with endOfPaginationReached = true is correctly initialized',
         () {
-      var loadState = const LoadState.notLoading(endOfPaginationReached: true);
-
+      const loadState = LoadState.notLoadingComplete;
       expect(loadState, isA<NotLoading>());
-
-      loadState = loadState as NotLoading;
       expect(loadState.endOfPaginationReached, true);
     });
 
     test(
         'NotLoading with endOfPaginationReached = false is correctly initialized',
         () {
-      var loadState = const LoadState.notLoading(endOfPaginationReached: false);
-
+      const loadState = LoadState.notLoadingIncomplete;
       expect(loadState, isA<NotLoading>());
-
-      loadState = loadState as NotLoading;
       expect(loadState.endOfPaginationReached, false);
     });
   });

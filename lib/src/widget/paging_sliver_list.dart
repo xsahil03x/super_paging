@@ -206,7 +206,7 @@ class PagingSliverList<Key, Value> extends StatelessWidget {
     if (separatorBuilder != null) {
       return SliverChildBuilderDelegate(
         (BuildContext context, int index) {
-          final int itemIndex = index ~/ 2;
+          final itemIndex = index ~/ 2;
           if (index.isEven) {
             // Generate append notification.
             generateAppendLoadTriggerNotification(itemIndex);

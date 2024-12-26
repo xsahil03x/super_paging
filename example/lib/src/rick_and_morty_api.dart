@@ -9,11 +9,11 @@ class RickAndMortyApi {
 
   Future<RickAndMortyData> getCharacters({required int page}) async {
     final res = await _client.get(
-      Uri.parse("https://rickandmortyapi.com/api/character?page=$page"),
+      Uri.parse('https://rickandmortyapi.com/api/character?page=$page'),
     );
 
     if (res.statusCode != 200) {
-      throw Exception("Error getting movies");
+      throw Exception('Error getting movies');
     }
 
     return RickAndMortyData.fromJson(jsonDecode(res.body));
