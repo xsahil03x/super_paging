@@ -1,13 +1,12 @@
 import 'package:flutter/foundation.dart';
-import 'package:super_paging/src/widget/bidirectional_paging_list_view.dart';
 
-import 'load_state.dart';
-import 'load_type.dart';
-import 'logger.dart';
-import 'page_fetcher.dart';
-import 'paging_config.dart';
-import 'paging_source.dart';
-import 'paging_state.dart';
+import 'package:super_paging/src/load_state.dart';
+import 'package:super_paging/src/load_type.dart';
+import 'package:super_paging/src/logger.dart';
+import 'package:super_paging/src/page_fetcher.dart';
+import 'package:super_paging/src/paging_config.dart';
+import 'package:super_paging/src/paging_source.dart';
+import 'package:super_paging/src/paging_state.dart';
 
 typedef PagingSourceFactory<Key, Value> = PagingSource<Key, Value> Function();
 

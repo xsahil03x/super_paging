@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import 'package:super_paging/src/load_type.dart';
 import 'package:super_paging/src/paging_config.dart';
 import 'package:super_paging/src/pager.dart';
-
-import 'load_type.dart';
-import 'preconditions.dart';
+import 'package:super_paging/src/preconditions.dart';
 
 part 'paging_source.freezed.dart';
 

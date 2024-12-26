@@ -1,5 +1,12 @@
 import 'package:flutter/widgets.dart';
-import 'package:super_paging/super_paging.dart';
+
+import 'package:super_paging/src/load_state.dart';
+import 'package:super_paging/src/load_type.dart';
+import 'package:super_paging/src/pager.dart';
+import 'package:super_paging/src/paging_source.dart';
+import 'package:super_paging/src/paging_state.dart';
+import 'package:super_paging/src/widget/common.dart';
+import 'package:super_paging/src/widget/paging_widget_builder.dart';
 
 /// A Flutter widget that represents a paginated sliver list, capable of
 /// displaying various states such as loading, error, empty, and the actual list
@@ -13,7 +20,7 @@ import 'package:super_paging/super_paging.dart';
 ///  * <https://flutter.dev/docs/development/ui/advanced/slivers>, a description
 ///    of what slivers are and how to use them.
 ///  * [PagingListView], a list view version of this widget.
-class PagingSliverList<Key, Value> extends StatefulWidget {
+class PagingSliverList<Key, Value> extends StatelessWidget {
   PagingSliverList({
     super.key,
     required this.pager,
@@ -99,111 +106,46 @@ class PagingSliverList<Key, Value> extends StatefulWidget {
   final bool addSemanticIndexes;
 
   @override
-  State<PagingSliverList<Key, Value>> createState() =>
-      _PagingSliverListState<Key, Value>();
-}
-
-class _PagingSliverListState<Key, Value>
-    extends State<PagingSliverList<Key, Value>> {
-  Pager<Key, Value> get pager => widget.pager;
-
-  void _loadInitialIfRequired() {
-    final refreshState = pager.value.refreshLoadState;
-    if (refreshState is NotLoading) {
-      // If the load is already completed, we don't have to call it again.
-      if (refreshState.endOfPaginationReached) return;
-
-      // Otherwise, do initial load.
-      pager.load(LoadType.refresh);
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _loadInitialIfRequired();
-  }
-
-  @override
-  void didUpdateWidget(covariant PagingSliverList<Key, Value> oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.pager != widget.pager) {
-      _loadInitialIfRequired();
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: pager,
-      builder: (context, state, child) {
-        // All the loaded pages.
-        final pages = state.pages;
-
-        // Handle the refresh state.
-        // The refresh state is the state of the first page.
-        final refreshState = state.refreshLoadState;
-        return refreshState.when(
-          error: (error) {
-            final errorWidget = widget.errorBuilder.call(context, error);
-            return SliverFillRemaining(child: errorWidget);
-          },
-          loading: () {
-            // We are only going to show the loading widget if there are no
-            // pages.
-            if (pages.isListEmpty) {
-              final loadingWidget = widget.loadingBuilder.call(context);
-              return SliverFillRemaining(child: loadingWidget);
-            }
-
-            // Otherwise, we are going to build our list of pages.
-            return _buildPageList(
-              context,
-              pages: pages,
-              prependLoadState: state.prependLoadState,
-              appendLoadState: state.appendLoadState,
-            );
-          },
-          notLoading: (_) {
-            // If there are no pages, we are going to show the empty widget.
-            if (pages.isListEmpty) {
-              final emptyWidget = widget.emptyBuilder.call(context);
-              return SliverFillRemaining(child: emptyWidget);
-            }
-
-            // Otherwise, we are going to build our list of pages.
-            return _buildPageList(
-              context,
-              pages: pages,
-              prependLoadState: state.prependLoadState,
-              appendLoadState: state.appendLoadState,
-            );
-          },
-        );
+    return PagingWidgetBuilder(
+      pager: pager,
+      pageListBuilder: _buildPageList,
+      emptyBuilder: (context) {
+        final emptyWidget = emptyBuilder.call(context);
+        return SliverFillRemaining(child: emptyWidget);
+      },
+      errorBuilder: (context, error) {
+        final errorWidget = errorBuilder.call(context, error);
+        return SliverFillRemaining(child: errorWidget);
+      },
+      loadingBuilder: (context) {
+        final loadingWidget = loadingBuilder.call(context);
+        return SliverFillRemaining(child: loadingWidget);
       },
     );
   }
 
   Widget _buildPageList(
-    BuildContext context, {
-    required LoadState prependLoadState,
-    required PagingList<LoadResultPage<Key, Value>> pages,
-    required LoadState appendLoadState,
-  }) {
+    BuildContext context,
+    PagingList<LoadResultPage<Key, Value>> pages,
+    LoadState prependLoadState,
+    LoadState appendLoadState,
+  ) {
     return SliverMainAxisGroup(
       slivers: [
         ...{
           // Handle prepend load state.
           SliverToBoxAdapter(
-            child: widget.prependStateBuilder.call(
+            child: prependStateBuilder.call(
               context,
               prependLoadState,
-              pager,
+              pager.load,
+              pager.retry,
             ),
           ),
 
           SliverToBoxAdapter(
-            child: widget.headerBuilder?.call(context),
+            child: headerBuilder?.call(context),
           ),
 
           // Handle loaded pages.
@@ -220,15 +162,16 @@ class _PagingSliverListState<Key, Value>
           ),
 
           SliverToBoxAdapter(
-            child: widget.footerBuilder?.call(context),
+            child: footerBuilder?.call(context),
           ),
 
           // Handle append load state.
           SliverToBoxAdapter(
-            child: widget.appendStateBuilder.call(
+            child: appendStateBuilder.call(
               context,
               appendLoadState,
-              pager,
+              pager.load,
+              pager.retry,
             ),
           ),
         }.whereType(), // Remove nulls.
@@ -258,12 +201,12 @@ class _PagingSliverListState<Key, Value>
       if (shouldAppendItems) onBuildingAppendLoadTriggerItem?.call();
     }
 
-    final itemBuilder = widget.itemBuilder;
-    final separatorBuilder = widget.separatorBuilder;
+    final itemBuilder = this.itemBuilder;
+    final separatorBuilder = this.separatorBuilder;
     if (separatorBuilder != null) {
       return SliverChildBuilderDelegate(
         (BuildContext context, int index) {
-          final int itemIndex = index ~/ 2;
+          final itemIndex = index ~/ 2;
           if (index.isEven) {
             // Generate append notification.
             generateAppendLoadTriggerNotification(itemIndex);
@@ -275,10 +218,10 @@ class _PagingSliverListState<Key, Value>
           return separatorBuilder(context, itemIndex);
         },
         childCount: itemCount * 2 - 1,
-        findChildIndexCallback: widget.findChildIndexCallback,
-        addAutomaticKeepAlives: widget.addAutomaticKeepAlives,
-        addRepaintBoundaries: widget.addRepaintBoundaries,
-        addSemanticIndexes: widget.addSemanticIndexes,
+        findChildIndexCallback: findChildIndexCallback,
+        addAutomaticKeepAlives: addAutomaticKeepAlives,
+        addRepaintBoundaries: addRepaintBoundaries,
+        addSemanticIndexes: addSemanticIndexes,
         semanticIndexCallback: (Widget widget, int index) {
           return index.isEven ? index ~/ 2 : null;
         },
@@ -294,10 +237,10 @@ class _PagingSliverListState<Key, Value>
         return itemBuilder(context, index);
       },
       childCount: itemCount,
-      findChildIndexCallback: widget.findChildIndexCallback,
-      addAutomaticKeepAlives: widget.addAutomaticKeepAlives,
-      addRepaintBoundaries: widget.addRepaintBoundaries,
-      addSemanticIndexes: widget.addSemanticIndexes,
+      findChildIndexCallback: findChildIndexCallback,
+      addAutomaticKeepAlives: addAutomaticKeepAlives,
+      addRepaintBoundaries: addRepaintBoundaries,
+      addSemanticIndexes: addSemanticIndexes,
     );
   }
 }

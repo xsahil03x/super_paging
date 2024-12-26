@@ -1,7 +1,7 @@
 import 'package:super_paging/super_paging.dart';
 
-import 'rick_and_morty_data.dart';
-import 'rick_and_morty_api.dart';
+import 'package:example/src/rick_and_morty_data.dart';
+import 'package:example/src/rick_and_morty_api.dart';
 
 class RickAndMortySource extends PagingSource<int, RickAndMortyCharacter> {
   const RickAndMortySource({required this.api});

@@ -11,7 +11,7 @@ const initialState = PagingState<int, String>(
   ]),
   refreshLoadState: LoadState.notLoadingComplete,
   prependLoadState: LoadState.notLoadingComplete,
-  appendLoadState: LoadState.notLoading(endOfPaginationReached: false),
+  appendLoadState: LoadState.notLoadingIncomplete,
 );
 
 void main() {

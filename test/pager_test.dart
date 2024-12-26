@@ -11,7 +11,7 @@ const initialState = PagingState<int, String>(
   ]),
   refreshLoadState: LoadState.notLoadingComplete,
   prependLoadState: LoadState.notLoadingComplete,
-  appendLoadState: LoadState.notLoading(endOfPaginationReached: false),
+  appendLoadState: LoadState.notLoadingIncomplete,
 );
 
 void main() {
@@ -89,7 +89,7 @@ void main() {
       pagingSourceFactory: () => const FakePagingSource(),
     );
 
-    int listenerCount = 0;
+    var listenerCount = 0;
 
     void listener() {
       listenerCount++;
@@ -215,11 +215,8 @@ void main() {
     });
 
     test('appendLoadState should return the load state of the next page', () {
-      final LoadState loadState = pager.appendLoadState;
-      expect(
-        loadState,
-        equals(const LoadState.notLoading(endOfPaginationReached: false)),
-      );
+      final loadState = pager.appendLoadState;
+      expect(loadState, equals(LoadState.notLoadingIncomplete));
     });
   });
 }

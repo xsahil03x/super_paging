@@ -15,10 +15,8 @@ void main() {
 
       expect(pagingState.pages, pages);
       expect(pagingState.refreshLoadState, LoadState.notLoadingComplete);
-      expect(pagingState.prependLoadState,
-          const LoadState.notLoading(endOfPaginationReached: true));
-      expect(pagingState.appendLoadState,
-          const LoadState.notLoading(endOfPaginationReached: true));
+      expect(pagingState.prependLoadState, LoadState.notLoadingComplete);
+      expect(pagingState.appendLoadState, LoadState.notLoadingComplete);
     });
 
     test('PagingState.fromPages initializes correctly with empty pages', () {

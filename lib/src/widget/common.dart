@@ -1,66 +1,77 @@
 import 'package:flutter/material.dart';
 
-import '../load_state.dart';
-import '../load_type.dart';
-import '../pager.dart';
+import 'package:super_paging/src/load_state.dart';
+import 'package:super_paging/src/load_type.dart';
+import 'package:super_paging/src/paging_source.dart';
+import 'package:super_paging/src/paging_state.dart';
 
 typedef PagingStateLoadingBuilder = WidgetBuilder;
 typedef PagingStateEmptyBuilder = WidgetBuilder;
+
+typedef PageListBuilder<K, V> = Widget Function(
+  BuildContext context,
+  PagingList<LoadResultPage<K, V>> pages,
+  LoadState prependLoadState,
+  LoadState appendLoadState,
+);
 
 typedef PagingStateErrorBuilder = Widget Function(
   BuildContext context,
   Object? error,
 );
 
-typedef PrependStateBuilder<K, V> = Widget? Function(
+typedef LoadStateBuilder = Widget? Function(
   BuildContext context,
   LoadState state,
-  Pager<K, V> pager,
+  void Function(LoadType loadType)? onLoadMoreTap,
+  VoidCallback? onRetryTap,
 );
 
-typedef AppendStateBuilder<K, V> = Widget? Function(
-  BuildContext context,
-  LoadState state,
-  Pager<K, V> pager,
-);
+typedef AppendStateBuilder = LoadStateBuilder;
+typedef PrependStateBuilder = LoadStateBuilder;
 
 typedef HeaderBuilder = WidgetBuilder;
 typedef FooterBuilder = WidgetBuilder;
 
 /// The default widget builder for the append state.
-Widget? defaultPrependStateBuilder<K, V>(
+Widget? defaultPrependStateBuilder(
   BuildContext context,
   LoadState state,
-  Pager<K, V> pager,
+  void Function(LoadType loadType)? onLoadMoreTap,
+  VoidCallback? onRetryTap,
 ) {
-  return _defaultLoadMoreStateBuilder(
+  return _defaultLoadStateBuilder(
     context,
     LoadType.prepend,
     state,
-    pager,
+    onLoadMoreTap,
+    onRetryTap,
   );
 }
 
 /// The default widget builder for the append state.
-Widget? defaultAppendStateBuilder<K, V>(
+Widget? defaultAppendStateBuilder(
   BuildContext context,
   LoadState state,
-  Pager<K, V> pager,
+  void Function(LoadType loadType)? onLoadMoreTap,
+  VoidCallback? onRetryTap,
 ) {
-  return _defaultLoadMoreStateBuilder(
+  return _defaultLoadStateBuilder(
     context,
     LoadType.append,
     state,
-    pager,
+    onLoadMoreTap,
+    onRetryTap,
   );
 }
 
 // The default widget builder for the append and prepend state.
-Widget? _defaultLoadMoreStateBuilder<K, V>(
+Widget? _defaultLoadStateBuilder(
   BuildContext context,
   LoadType type,
   LoadState state,
-  Pager<K, V> pager,
+  void Function(LoadType loadType)? onLoadMoreTap,
+  VoidCallback? onRetryTap,
 ) {
   return state.when(
     notLoading: (endOfPaginationReached) {
@@ -72,7 +83,10 @@ Widget? _defaultLoadMoreStateBuilder<K, V>(
 
       // Show a simple tile to trigger loading more.
       return InkWell(
-        onTap: () => pager.load(type),
+        onTap: switch (onLoadMoreTap) {
+          final fn? => () => fn(type),
+          _ => null,
+        },
         child: const ListTile(
           title: Text('Load more'),
           trailing: Icon(Icons.refresh_rounded),
@@ -94,7 +108,7 @@ Widget? _defaultLoadMoreStateBuilder<K, V>(
     error: (e) {
       // Show a retry tile if there was an error loading data.
       return InkWell(
-        onTap: pager.retry,
+        onTap: onRetryTap,
         child: const ListTile(
           title: Text('Error loading data!'),
           trailing: Icon(Icons.refresh_rounded),

@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:super_paging/src/pager.dart';
-import 'package:super_paging/src/widget/paging_sliver_list.dart';
 
-import 'common.dart';
+import 'package:super_paging/src/pager.dart';
+import 'package:super_paging/src/widget/common.dart';
+import 'package:super_paging/src/widget/paging_sliver_list.dart';
 
 /// A Flutter widget that represents a paginated list, capable of displaying
 /// various states such as loading, error, empty, and the actual list of items.
@@ -61,7 +61,6 @@ class PagingListView<Key, Value> extends BoxScrollView {
     super.controller,
     super.primary,
     super.physics,
-    super.shrinkWrap,
     super.padding,
     this.findChildIndexCallback,
     this.addAutomaticKeepAlives = true,

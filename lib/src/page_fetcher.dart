@@ -1,12 +1,12 @@
 import 'package:cancellation_token/cancellation_token.dart';
 import 'package:flutter/foundation.dart';
 
-import 'load_state.dart';
-import 'load_type.dart';
-import 'logger.dart';
-import 'paging_config.dart';
-import 'paging_source.dart';
-import 'paging_state.dart';
+import 'package:super_paging/src/load_state.dart';
+import 'package:super_paging/src/load_type.dart';
+import 'package:super_paging/src/logger.dart';
+import 'package:super_paging/src/paging_config.dart';
+import 'package:super_paging/src/paging_source.dart';
+import 'package:super_paging/src/paging_state.dart';
 
 /// A specialized [ValueNotifier] for handling paginated data loading with a
 /// [PagingSource].
@@ -360,7 +360,7 @@ extension<Key, Value> on PagingState<Key, Value> {
         );
       case LoadType.prepend:
         if (pages.isEmpty) {
-          throw StateError('should\'ve received an init before prepend');
+          throw StateError("should've received an init before prepend");
         }
 
         return copyWith(
@@ -374,7 +374,7 @@ extension<Key, Value> on PagingState<Key, Value> {
         );
       case LoadType.append:
         if (pages.isEmpty) {
-          throw StateError('should\'ve received an init before append');
+          throw StateError("should've received an init before append");
         }
 
         return copyWith(
