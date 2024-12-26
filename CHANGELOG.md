@@ -1,3 +1,7 @@
+## Upcoming
+
+- Introduced `PagingWidgetBuilder` an abstract paging builder that can be used to build custom paging widgets such as Grid, List, or any other custom paging widget.
+
 ## 0.2.0
 
 - [[#11]](https://github.com/xsahil03x/super_paging/issues/11) Fix generating prepend load trigger notification when `prefetchIndex` is bigger than the items visible on the screen.
