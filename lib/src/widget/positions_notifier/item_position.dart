@@ -48,7 +48,7 @@ extension ItemPositionX on Set<ItemPosition> {
   /// If [fullyVisible] is true, it checks if the item is fully visible.
   bool isItemVisible({
     required int index,
-    bool fullyVisible = true,
+    bool fullyVisible = false,
   }) {
     final item = firstWhereOrNull((it) => it.index == index);
     if (item == null) return false; // Item not found.
