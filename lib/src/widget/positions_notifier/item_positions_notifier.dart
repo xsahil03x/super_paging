@@ -81,18 +81,22 @@ class _ItemPositionsNotifierState extends State<ItemPositionsNotifier> {
 
   bool _updateScheduled = false;
   void _schedulePositionNotificationUpdate() {
-    if (_updateScheduled || _elements.isEmpty) return;
+    if (_updateScheduled) return;
+    _updateScheduled = true;
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      final positions = <ItemPosition>{};
-      for (final element in _elements) {
-        final position = element.toItemPosition(widget.controller.position);
-        if (position != null) {
-          positions.add(position);
+      if (_elements.isNotEmpty) {
+        final positions = <ItemPosition>{};
+        for (final element in _elements) {
+          final position = element.toItemPosition(widget.controller.position);
+          if (position != null) {
+            positions.add(position);
+          }
         }
+
+        widget.onPositionsChanged?.call(positions);
       }
 
-      widget.onPositionsChanged?.call(positions);
       _updateScheduled = false;
     });
   }
