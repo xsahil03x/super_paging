@@ -29,7 +29,9 @@ mixin _$PagingState<Key, Value> {
   /// Load state of the next page.
   LoadState get appendLoadState => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PagingState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PagingStateCopyWith<Key, Value, PagingState<Key, Value>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,6 +64,8 @@ class _$PagingStateCopyWithImpl<Key, Value, $Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PagingState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -90,6 +94,8 @@ class _$PagingStateCopyWithImpl<Key, Value, $Res,
     ) as $Val);
   }
 
+  /// Create a copy of PagingState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $LoadStateCopyWith<$Res> get refreshLoadState {
@@ -98,6 +104,8 @@ class _$PagingStateCopyWithImpl<Key, Value, $Res,
     });
   }
 
+  /// Create a copy of PagingState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $LoadStateCopyWith<$Res> get prependLoadState {
@@ -106,6 +114,8 @@ class _$PagingStateCopyWithImpl<Key, Value, $Res,
     });
   }
 
+  /// Create a copy of PagingState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $LoadStateCopyWith<$Res> get appendLoadState {
@@ -146,6 +156,8 @@ class __$$PagingStateImplCopyWithImpl<Key, Value, $Res>
       $Res Function(_$PagingStateImpl<Key, Value>) _then)
       : super(_value, _then);
 
+  /// Create a copy of PagingState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -231,7 +243,9 @@ class _$PagingStateImpl<Key, Value> implements _PagingState<Key, Value> {
       prependLoadState,
       appendLoadState);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PagingState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PagingStateImplCopyWith<Key, Value, _$PagingStateImpl<Key, Value>>
@@ -246,24 +260,26 @@ abstract class _PagingState<Key, Value> implements PagingState<Key, Value> {
       final LoadState prependLoadState,
       final LoadState appendLoadState}) = _$PagingStateImpl<Key, Value>;
 
-  @override
-
   /// List with all the pages loaded so far.
-  PagingList<LoadResultPage<Key, Value>> get pages;
   @override
+  PagingList<LoadResultPage<Key, Value>> get pages;
 
   /// Load state of the initial page.
-  LoadState get refreshLoadState;
   @override
+  LoadState get refreshLoadState;
 
   /// Load state of the previous page.
-  LoadState get prependLoadState;
   @override
+  LoadState get prependLoadState;
 
   /// Load state of the next page.
-  LoadState get appendLoadState;
   @override
-  @JsonKey(ignore: true)
+  LoadState get appendLoadState;
+
+  /// Create a copy of PagingState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PagingStateImplCopyWith<Key, Value, _$PagingStateImpl<Key, Value>>
       get copyWith => throw _privateConstructorUsedError;
 }

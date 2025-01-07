@@ -11,3 +11,6 @@ export 'src/widget/common.dart';
 export 'src/widget/paging_list_view.dart';
 export 'src/widget/paging_sliver_list.dart';
 export 'src/widget/paging_widget_builder.dart';
+export 'src/widget/positions_notifier/item_positions_notifier.dart';
+export 'src/widget/positions_notifier/item_position.dart';
+export 'src/widget/positions_notifier/indexed_key.dart';

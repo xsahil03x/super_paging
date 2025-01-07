@@ -77,6 +77,9 @@ class _$LoadStateCopyWithImpl<$Res, $Val extends LoadState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of LoadState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -96,6 +99,8 @@ class __$$NotLoadingImplCopyWithImpl<$Res>
       _$NotLoadingImpl _value, $Res Function(_$NotLoadingImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LoadState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -135,7 +140,9 @@ class _$NotLoadingImpl implements NotLoading {
   @override
   int get hashCode => Object.hash(runtimeType, endOfPaginationReached);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LoadState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NotLoadingImplCopyWith<_$NotLoadingImpl> get copyWith =>
@@ -215,7 +222,10 @@ abstract class NotLoading implements LoadState {
       _$NotLoadingImpl;
 
   bool get endOfPaginationReached;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of LoadState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NotLoadingImplCopyWith<_$NotLoadingImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -234,6 +244,9 @@ class __$$LoadingImplCopyWithImpl<$Res>
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of LoadState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -345,6 +358,8 @@ class __$$ErrorImplCopyWithImpl<$Res>
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LoadState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -381,7 +396,9 @@ class _$ErrorImpl implements Error {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(error));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LoadState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
@@ -460,7 +477,10 @@ abstract class Error implements LoadState {
   const factory Error([final Object? error]) = _$ErrorImpl;
 
   Object? get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of LoadState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

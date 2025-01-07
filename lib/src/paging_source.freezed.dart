@@ -74,7 +74,9 @@ mixin _$LoadParams<Key> {
   }) =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LoadParams
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LoadParamsCopyWith<Key, LoadParams<Key>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -98,6 +100,8 @@ class _$LoadParamsCopyWithImpl<Key, $Res, $Val extends LoadParams<Key>>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of LoadParams
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -131,6 +135,8 @@ class __$$RefreshImplCopyWithImpl<Key, $Res>
       _$RefreshImpl<Key> _value, $Res Function(_$RefreshImpl<Key>) _then)
       : super(_value, _then);
 
+  /// Create a copy of LoadParams
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -199,7 +205,9 @@ class _$RefreshImpl<Key> with DiagnosticableTreeMixin implements Refresh<Key> {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(key), loadSize);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LoadParams
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RefreshImplCopyWith<Key, _$RefreshImpl<Key>> get copyWith =>
@@ -278,8 +286,6 @@ abstract class Refresh<Key> implements LoadParams<Key> {
   const factory Refresh({final Key? key, required final int loadSize}) =
       _$RefreshImpl<Key>;
 
-  @override
-
   /// Key for the page to be loaded.
   ///
   /// [key] can be `null` only if this [LoadParams] is [Refresh], and either
@@ -291,11 +297,15 @@ abstract class Refresh<Key> implements LoadParams<Key> {
   ///    of the list.
   ///  * [Append] - [LoadResultPage.nextKey] of the loaded page at the end of
   ///    the list.
+  @override
   Key? get key;
   @override
   int get loadSize;
+
+  /// Create a copy of LoadParams
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RefreshImplCopyWith<Key, _$RefreshImpl<Key>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -319,6 +329,8 @@ class __$$AppendImplCopyWithImpl<Key, $Res>
       _$AppendImpl<Key> _value, $Res Function(_$AppendImpl<Key>) _then)
       : super(_value, _then);
 
+  /// Create a copy of LoadParams
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -376,7 +388,9 @@ class _$AppendImpl<Key> with DiagnosticableTreeMixin implements Append<Key> {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(key), loadSize);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LoadParams
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AppendImplCopyWith<Key, _$AppendImpl<Key>> get copyWith =>
@@ -459,8 +473,11 @@ abstract class Append<Key> implements LoadParams<Key> {
   Key get key;
   @override
   int get loadSize;
+
+  /// Create a copy of LoadParams
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AppendImplCopyWith<Key, _$AppendImpl<Key>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -484,6 +501,8 @@ class __$$PrependImplCopyWithImpl<Key, $Res>
       _$PrependImpl<Key> _value, $Res Function(_$PrependImpl<Key>) _then)
       : super(_value, _then);
 
+  /// Create a copy of LoadParams
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -541,7 +560,9 @@ class _$PrependImpl<Key> with DiagnosticableTreeMixin implements Prepend<Key> {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(key), loadSize);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LoadParams
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PrependImplCopyWith<Key, _$PrependImpl<Key>> get copyWith =>
@@ -624,8 +645,11 @@ abstract class Prepend<Key> implements LoadParams<Key> {
   Key get key;
   @override
   int get loadSize;
+
+  /// Create a copy of LoadParams
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PrependImplCopyWith<Key, _$PrependImpl<Key>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -690,6 +714,9 @@ class _$LoadResultCopyWithImpl<Key, Value, $Res,
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of LoadResult
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -710,6 +737,8 @@ class __$$LoadResultPageImplCopyWithImpl<Key, Value, $Res>
       $Res Function(_$LoadResultPageImpl<Key, Value>) _then)
       : super(_value, _then);
 
+  /// Create a copy of LoadResult
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -796,7 +825,9 @@ class _$LoadResultPageImpl<Key, Value>
       const DeepCollectionEquality().hash(prevKey),
       const DeepCollectionEquality().hash(nextKey));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LoadResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoadResultPageImplCopyWith<Key, Value, _$LoadResultPageImpl<Key, Value>>
@@ -883,7 +914,10 @@ abstract class LoadResultPage<Key, Value> implements LoadResult<Key, Value> {
   /// [Key] for next page if more items can be loaded in that direction,
   /// `null` otherwise.
   Key? get nextKey;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of LoadResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadResultPageImplCopyWith<Key, Value, _$LoadResultPageImpl<Key, Value>>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -907,6 +941,8 @@ class __$$LoadResultErrorImplCopyWithImpl<Key, Value, $Res>
       $Res Function(_$LoadResultErrorImpl<Key, Value>) _then)
       : super(_value, _then);
 
+  /// Create a copy of LoadResult
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -953,7 +989,9 @@ class _$LoadResultErrorImpl<Key, Value>
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(error));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LoadResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoadResultErrorImplCopyWith<Key, Value, _$LoadResultErrorImpl<Key, Value>>
@@ -1029,7 +1067,10 @@ abstract class LoadResultError<Key, Value> implements LoadResult<Key, Value> {
       _$LoadResultErrorImpl<Key, Value>;
 
   Object? get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of LoadResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadResultErrorImplCopyWith<Key, Value, _$LoadResultErrorImpl<Key, Value>>
       get copyWith => throw _privateConstructorUsedError;
 }
