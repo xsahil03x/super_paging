@@ -1,6 +1,7 @@
 ## Upcoming
 
 - Introduced `PagingWidgetBuilder` an abstract paging builder that can be used to build custom paging widgets such as Grid, List, or any other custom paging widget.
+- Added `ItemPositionsNotifier` for tracking item positions in scrollable lists.
 
 ## 0.2.0
 
