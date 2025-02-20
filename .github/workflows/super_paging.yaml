@@ -71,7 +71,7 @@ jobs:
           cache-key: flutter-:os:-:channel:-:version:-:arch:-:hash:-${{ hashFiles('**/pubspec.lock') }}
 
       - name: 📁 Build and release
-        uses: bluefireteam/flutter-gh-pages@v8
+        uses: bluefireteam/flutter-gh-pages@v9
         with:
           baseHref: /super_paging/
           workingDir: example
