@@ -48,6 +48,12 @@ class PageFetcher<Key, Value> extends ValueNotifier<PagingState<Key, Value>> {
     return super.dispose();
   }
 
+  @override
+  set value(PagingState<Key, Value> newValue) {
+    if (!hasListeners) return;
+    super.value = newValue;
+  }
+
   Future<void> load(LoadType loadType) {
     return switch (loadType) {
       LoadType.refresh => _doInitialLoad(),
